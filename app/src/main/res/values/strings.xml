@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Ghost Hunter</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="developers">
+        Made by:
+        Mark Heneine, Luc Descour, Colette Merrill, and Alex Keebler!
+    </string>
+    <string name="section">
+        The University of Virginia: CS 2110 Spring 2015
+    </string>
+
+
+
+</resources>
