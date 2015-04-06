@@ -17,6 +17,8 @@ public class Draw extends View {
         super(context);
     }
 
+
+
     @Override
 protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

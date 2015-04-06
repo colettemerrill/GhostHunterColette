@@ -1,6 +1,7 @@
 package cdm8pf.cs2110.virginia.edu.ghosthunter;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 /**
@@ -8,9 +9,23 @@ import android.os.Bundle;
  */
 public class Easy extends Activity {
 
+    MediaPlayer backgroundMusic;
+    Draw maze;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.easy);
+
+        backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
+        backgroundMusic.start();
+
+
+        maze = new Draw(this);
+
+
+        setContentView(maze);
+
+
+
 
 
     }
