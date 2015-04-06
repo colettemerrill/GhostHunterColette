@@ -1,15 +1,18 @@
 <resources>
-    <string name="app_name">Ghost Hunter</string>
+    <string name="app_name">Maze Runner!</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string name="developers">
-        Made by:
+           Made by:
         Mark Heneine, Luc Descour, Colette Merrill, and Alex Keebler!
     </string>
     <string name="section">
         The University of Virginia: CS 2110 Spring 2015
+    </string>
+    <string name="levels">
+        Please select your difficulty level...
     </string>
 
 
