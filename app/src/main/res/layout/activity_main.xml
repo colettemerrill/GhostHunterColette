@@ -45,7 +45,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Super Hard"
+        android:text="Hard"
          android:textSize="20dp"
         android:gravity="center"
         android:textColor="#B40431"
