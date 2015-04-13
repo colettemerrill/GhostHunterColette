@@ -22,12 +22,4 @@ public class Medium extends Activity {
 
 
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //"releases" or stops music on onPause() method
-        backgroundMusic.release();
-    }
 }

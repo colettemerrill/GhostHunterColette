@@ -21,12 +21,4 @@ public class Hard extends Activity {
 
 
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //"releases" or stops music on onPause() method
-        backgroundMusic.release();
-    }
 }
