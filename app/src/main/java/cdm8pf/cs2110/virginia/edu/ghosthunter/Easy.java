@@ -2,15 +2,14 @@ package cdm8pf.cs2110.virginia.edu.ghosthunter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
-import android.view.Gravity;
-import android.view.MotionEvent;
+
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.Button;
 /**
  * Created by colettemerrill on 4/5/15.
  */
-public class Easy extends Activity implements View.OnTouchListener{
+public class Easy extends Activity {
 
     MediaPlayer backgroundMusic;
 
@@ -35,11 +34,6 @@ public class Easy extends Activity implements View.OnTouchListener{
         backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
         backgroundMusic.start();
         v = new OurView(this);
-        up = new Button(this);
-        up.setText("up");
-        up.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-        up.setVisibility(View.VISIBLE);
-        v.addView(up);
         setContentView(v);
 
         user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
@@ -48,6 +42,7 @@ public class Easy extends Activity implements View.OnTouchListener{
 
     protected void onPause() {
         super.onPause();
+        backgroundMusic.release();
         v.pause();
     }
 
@@ -55,29 +50,6 @@ public class Easy extends Activity implements View.OnTouchListener{
         super.onResume();
         v.resume();
     }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        try{
-
-            Thread.sleep(50); //20 times per seconds
-        }
-        catch ( InterruptedException e){
-            e.printStackTrace();
-        }
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                sprite.setXSpeed(10);
-                break;
-
-            case MotionEvent.ACTION_UP:
-                sprite.setYSpeed(1);
-                break;
-        }
-
-        return true;
-    }
-
 
     public class OurView extends SurfaceView implements Runnable{
 
@@ -90,40 +62,30 @@ public class Easy extends Activity implements View.OnTouchListener{
         super(context);
         holder = getHolder();
     }
-    public void addView(Button up) {
-
-    }
 
     @Override
     public void run() {
         sprite = new Sprite(OurView.this, user);
         while(ok == true){
+
             if(!holder.getSurface().isValid()) {
                 continue;
             }
-
-
-
             Canvas c = holder.lockCanvas();
             onDraw(c);
             holder.unlockCanvasAndPost(c);
 
+
         }
 
 
+
     }
 
-<<<<<<< HEAD
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-        //"releases" or stops music on onPause() method
-        backgroundMusic.release();
-    }
-=======
     protected void onDraw(Canvas c) {
         //c.drawPicture(level_background.png);
+        c.drawARGB(150, 0, 0, 0);
         sprite.onDraw(c);
 
     }
@@ -152,7 +114,7 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 
 
->>>>>>> adding-sprite
+
 }
 
 
