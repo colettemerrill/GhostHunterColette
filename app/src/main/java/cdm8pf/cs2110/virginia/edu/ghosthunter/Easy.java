@@ -2,6 +2,7 @@ package cdm8pf.cs2110.virginia.edu.ghosthunter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,15 +18,14 @@ import android.widget.Button;
 /**
  * Created by colettemerrill on 4/5/15.
  */
-public class Easy extends Activity implements View.OnTouchListener {
+public class Easy extends Activity {
 
     MediaPlayer backgroundMusic;
 
     Draw maze;
-    Bitmap user;
     OurView v;
     Sprite sprite;
-    Bitmap p;
+    Bitmap user;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,8 @@ public class Easy extends Activity implements View.OnTouchListener {
         backgroundMusic.start();
         v = new OurView(this);
         setContentView(v);
-        p = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
+
+        user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
     }
 
 
@@ -48,19 +49,14 @@ public class Easy extends Activity implements View.OnTouchListener {
         v.resume();
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        return false;
-    }
 
 
-
-public class OurView extends SurfaceView implements Runnable {
+public class OurView extends SurfaceView implements Runnable{
 
     Thread t = null;
     SurfaceHolder holder;
-    boolean ok = false;
-    boolean spriteLoaded = false;
+    boolean ok = true;
+
 
     public OurView(Context context) {
         super(context);
@@ -69,15 +65,14 @@ public class OurView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
+        sprite = new Sprite(OurView.this, user);
         while(ok == true){
             if(!holder.getSurface().isValid()) {
                 continue;
             }
 
-            if(!spriteLoaded) {
-                sprite = new Sprite(OurView.this, p);
-                spriteLoaded = true;
-            }
+
+
             Canvas c = holder.lockCanvas();
             onDraw(c);
             holder.unlockCanvasAndPost(c);
@@ -90,12 +85,23 @@ public class OurView extends SurfaceView implements Runnable {
     protected void onDraw(Canvas c) {
         //c.drawPicture(level_background.png);
         sprite.onDraw(c);
+
     }
 
 
     public void pause(){
 
         ok = false;
+        while(true){
+            try{
+                t.join();
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            break;
+        }
+        t = null;
+
         backgroundMusic.release();
     }
     public void resume(){
@@ -103,6 +109,8 @@ public class OurView extends SurfaceView implements Runnable {
         t = new Thread(this);
         t.start();
     }
+
+
 }
 
 
