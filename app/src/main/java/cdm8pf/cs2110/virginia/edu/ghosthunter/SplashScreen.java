@@ -7,6 +7,7 @@ package cdm8pf.cs2110.virginia.edu.ghosthunter;
         import android.util.Log;
         import android.view.Window;
         import android.view.WindowManager;
+
 /**
  * This file displays the splash screen activity and then starts the next activity which
  * (in this simple example) displays "Hello world!" (MainActivity)

@@ -10,23 +10,25 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
+
 
 /**
  * Created by colettemerrill on 4/5/15.
  */
-public class Easy extends Activity {
+public class Easy extends Activity implements View.OnTouchListener{
 
     MediaPlayer backgroundMusic;
 
-    Draw maze;
     OurView v;
     Sprite sprite;
     Bitmap user;
-    Button up;
+    Bitmap up;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +37,14 @@ public class Easy extends Activity {
         backgroundMusic.start();
         v = new OurView(this);
         setContentView(v);
+        v.setOnTouchListener(this);
 
         user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
+        //up = BitmapFactory.decodeResource(getResources(), R.drawable.up);
+        up = BitmapFactory.decodeResource(getResources(),  R.drawable.up);
     }
 
+//if program is paused
 
     protected void onPause() {
         super.onPause();
@@ -51,6 +57,39 @@ public class Easy extends Activity {
         v.resume();
     }
 
+    //if button is pressed
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if(event.getX() < 420 && event.getY() > 380){
+                    sprite.setXSpeed(0);
+                    sprite.setYSpeed(-5);
+                    Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                break;
+            case MotionEvent.ACTION_UP:
+
+
+
+                break;
+
+
+
+        }
+
+        return false;
+    }
+
+    //The gameplay view
     public class OurView extends SurfaceView implements Runnable{
 
     Thread t = null;
@@ -76,21 +115,23 @@ public class Easy extends Activity {
             holder.unlockCanvasAndPost(c);
 
 
+
         }
 
 
 
     }
 
-
+//What is being drawn each time
     protected void onDraw(Canvas c) {
         //c.drawPicture(level_background.png);
         c.drawARGB(150, 0, 0, 0);
         sprite.onDraw(c);
+        c.drawBitmap(up, 400, 300, null);
 
     }
 
-
+//if game is paused
     public void pause(){
 
         ok = false;
