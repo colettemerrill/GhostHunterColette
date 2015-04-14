@@ -25,9 +25,9 @@ public class Sprite {
         ov = ourView;
         height = sprite.getHeight()/4;
         width = sprite.getWidth() /4;
-        x = 100;
-        y = 200;
-        xSpeed = 10;
+        x = 600;
+        y = 600;
+        xSpeed = 0;
         ySpeed = 0;
         direction = 0;
         int currentFrame = 0;
@@ -37,32 +37,21 @@ public class Sprite {
     private void update() {
 
         //moving down
-        if(x > ov.getWidth() - width - xSpeed){
-            xSpeed = 0;
-            ySpeed = 10;
+        if(xSpeed == 0 && ySpeed > 0){
             direction = 0;
         }
         //moving left
-        if(y > ov.getHeight() - height - ySpeed){
-            xSpeed = -10;
-            ySpeed = 0;
+        if(ySpeed == 0 && xSpeed < 0){
             direction = 1;
         }
         //moving up
-        if(x+ xSpeed < 0){
-            x = 0;
-            xSpeed = 0;
-            ySpeed = -10;
+        if(xSpeed == 0 && ySpeed < 0){
             direction = 3;
         }
         //moving right
-        if(y + ySpeed < 0){
-            y = 0;
-            xSpeed = 10;
-            ySpeed = 0;
+        if(ySpeed == 0 && xSpeed > 0){
             direction = 2;
         }
-
 
         x += xSpeed;
         y +=  ySpeed;
