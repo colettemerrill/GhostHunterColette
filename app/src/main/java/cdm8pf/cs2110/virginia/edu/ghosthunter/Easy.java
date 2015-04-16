@@ -1,5 +1,6 @@
 package cdm8pf.cs2110.virginia.edu.ghosthunter;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 
@@ -10,11 +11,14 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.*;
+import java.lang.*;
+import android.widget.RadioGroup.*;
 
 
 /**
@@ -31,6 +35,7 @@ public class Easy extends Activity implements View.OnTouchListener{
     Bitmap down;
     Bitmap right;
     Bitmap left;
+    Bitmap stop;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,15 @@ public class Easy extends Activity implements View.OnTouchListener{
         backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
         backgroundMusic.start();
         v = new OurView(this);
+
+
+
         setContentView(v);
 
        v.setOnTouchListener(this);
+        v.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width1 = v.getMeasuredWidth();
+        Log.v("hello",Integer.toString(width1));
 
         user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
         //up = BitmapFactory.decodeResource(getResources(), R.drawable.up);
@@ -49,6 +60,7 @@ public class Easy extends Activity implements View.OnTouchListener{
         down = BitmapFactory.decodeResource(getResources(),  R.drawable.down);
         left = BitmapFactory.decodeResource(getResources(),  R.drawable.left);
         right = BitmapFactory.decodeResource(getResources(),  R.drawable.right);
+        stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
     }
 
 //if program is paused
@@ -75,19 +87,21 @@ public class Easy extends Activity implements View.OnTouchListener{
 
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+
+
                 //up movement
                 if(event.getX() < v.getWidth()/2 + up.getWidth()/2 && event.getX() > v.getWidth()/2 - up.getWidth()/2 && event.getY() > v.getHeight()-down.getHeight() && event.getY() < v.getHeight()-3*up.getHeight()){
-                    sprite.setXSpeed(0);
+                    //sprite.setXSpeed(0);
                     sprite.setYSpeed(-5);
                     Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 //right movement
                 if(event.getX() > 30 && event.getX() < 200){
-                    sprite.setXSpeed(5);
-                    sprite.setYSpeed(0);
-                Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
-                    toast.show();
+
+                   sprite.setXSpeed(5);
+                   sprite.setYSpeed(0);
+//
                 }
                 //down movement
                 if(event.getX() == 1){
@@ -97,6 +111,11 @@ public class Easy extends Activity implements View.OnTouchListener{
                 //left movement
                 if(event.getX() == 1){
                     sprite.setXSpeed(-5);
+                    sprite.setYSpeed(0);
+                }
+                //stop movement
+                if(event.getX() == 1){
+                    sprite.setXSpeed(0);
                     sprite.setYSpeed(0);
                 }
 
@@ -113,20 +132,9 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 
         }
-
         return false;
     }
 
-//    @Override
-//    public void onClick(View v) {
-//
-//        if(v.getX() > 30 && v.getX() < 200){
-//            sprite.setXSpeed(5);
-//            sprite.setYSpeed(0);
-//            Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-//    }
 
     //The gameplay view
     public class OurView extends SurfaceView implements Runnable{
@@ -139,6 +147,16 @@ public class Easy extends Activity implements View.OnTouchListener{
     public OurView(Context context) {
         super(context);
         holder = getHolder();
+
+        LinearLayout l = new LinearLayout(context);
+        Button u = new Button(context);
+        u.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        u.setX(200);
+        u.setY(300);
+        l.addView(u);
+
+
+
     }
 
     @Override
@@ -194,11 +212,11 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 //draws the buttons
 public void drawButtons(Canvas c){
-    c.drawBitmap(up, v.getWidth()/2 , v.getHeight()-2*up.getHeight(), null);
-
+    c.drawBitmap(up, 603, 0, null);
     c.drawBitmap(right, v.getWidth()/2 + right.getWidth(), v.getHeight()-right.getHeight(),null  );
     c.drawBitmap(down, v.getWidth()/2, v.getHeight()-down.getHeight(), null);
     c.drawBitmap(left, v.getWidth()/2 - left.getWidth(), v.getHeight() - left.getHeight(), null );
+    c.drawBitmap(stop, 50, v.getHeight()-stop.getHeight(), null);
 }
 
 }
