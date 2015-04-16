@@ -14,14 +14,14 @@ public class Sprite {
     int xSpeed, ySpeed;
     int height, width;
     Bitmap sprite;
-    Easy.OurView ov;
+    View ov;
    // Rect hitbox;
     int direction;
     int currentFrame = 0;
 
 
 
-    public Sprite(Easy.OurView ourView, Bitmap p) {
+    public Sprite(View ourView, Bitmap p) {
         sprite = p;
         ov = ourView;
         height = sprite.getHeight()/4;
@@ -94,6 +94,12 @@ public class Sprite {
     }
     public void setYSpeed(int nY) {
         ySpeed = nY;
+    }
+    public void setX(int nx) {
+        x = nx;
+    }
+    public int getX(){
+        return x;
     }
 
 
