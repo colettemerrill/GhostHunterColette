@@ -17,6 +17,7 @@ public class Sprite {
     Easy.OurView ov;
    // Rect hitbox;
     int direction;
+    int currentFrame = 0;
 
 
 
@@ -34,7 +35,7 @@ public class Sprite {
         //hitbox = new Rect(x,y, sprite.getHeight()/4, sprite.getWidth()/4);
     }
 
-    private void update() {
+    private void update()  {
 
         //moving down
         if(xSpeed == 0 && ySpeed > 0){
@@ -53,6 +54,13 @@ public class Sprite {
             direction = 2;
         }
 
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        currentFrame= ++currentFrame % 4;
         x += xSpeed;
         y +=  ySpeed;
 
@@ -67,8 +75,9 @@ public class Sprite {
 
     public void onDraw(Canvas c){
         update();
+        int srcX = currentFrame * width;
         int srcY = direction * height;
-        Rect src = new Rect(0,srcY ,width, srcY + height);
+        Rect src = new Rect(srcX, srcY, srcX+ width, srcY + height);
         Rect d = new Rect(x, y, x+width, y+height);
         c.drawBitmap(sprite, src, d, null);
     }
