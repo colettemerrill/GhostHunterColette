@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
@@ -186,11 +187,15 @@ public class Easy extends Activity implements View.OnTouchListener{
 
                         //What is being drawn each time
                         protected void onDraw(Canvas c) {
+                            super.onDraw(c);
                             counter++;
                             //c.drawPicture(level_background.png);
                             c.drawARGB(150, 0, 0, 0);
+                            drawMaze(c);
+
                             sprite.onDraw(c);
                             g1.onDraw(c);
+                            score(c);
 
                             drawButtons(c);
 
@@ -230,15 +235,6 @@ public class Easy extends Activity implements View.OnTouchListener{
 
                         //draws the buttons
                         public void drawButtons(Canvas c) {
-
-    /*
-    c.drawBitmap(up, 350,v.getHeight()-right.getHeight()-300 , null);
-    c.drawBitmap(right, 500, v.getHeight()-right.getHeight()-150,null  );
-    c.drawBitmap(down,350,v.getHeight() - down.getHeight(), null);
-    c.drawBitmap(left, 200, v.getHeight() - left.getHeight()-150, null );
-    c.drawBitmap(stop, 350, v.getHeight()-stop.getHeight()-150, null);
-    */
-
                             c.drawBitmap(up, 200, 904, null);
                             c.drawBitmap(left, 50, 1050, null);
                             c.drawBitmap(right, 350, 1050, null);
@@ -252,9 +248,24 @@ public class Easy extends Activity implements View.OnTouchListener{
                             coinTick = counter;
                             c.drawBitmap(coin, x, y, null);
                         }
-//
 
-                        public void maze(Canvas c){
+
+public void score(Canvas c){
+    Paint p = new Paint();
+    p.setColor(Color.RED);
+    p.setTextSize(30);
+    c.drawText("Score: " + counter, 500, 100, p);
+}
+
+                        public void drawMaze(Canvas c){
+
+
+                            Paint p = new Paint();
+                            c.drawPaint(p);
+                            p.setColor(Color.WHITE);
+                            p.setStrokeWidth(100);
+
+                            c.drawRect(50, 50, 100, 100, p);
 
                         }
 
