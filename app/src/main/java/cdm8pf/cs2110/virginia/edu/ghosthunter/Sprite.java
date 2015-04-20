@@ -31,7 +31,7 @@ public class Sprite {
         xSpeed = 0;
         ySpeed = 0;
         direction = 0;
-        int currentFrame = 0;
+        currentFrame = 0;
         //hitbox = new Rect(x,y, sprite.getHeight()/4, sprite.getWidth()/4);
     }
 

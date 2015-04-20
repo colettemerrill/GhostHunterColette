@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
@@ -18,7 +19,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.*;
+
+import java.io.File;
 import java.lang.*;
+import java.util.Scanner;
+
 import android.widget.RadioGroup.*;
 
 
@@ -42,6 +47,8 @@ public class Easy extends Activity implements View.OnTouchListener{
     int counter;
     int coinTick;
     Paint p;
+    Ghost g1;
+    Bitmap ghost;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,7 @@ public class Easy extends Activity implements View.OnTouchListener{
 
        v.setOnTouchListener(this);
         user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
+        ghost = BitmapFactory.decodeResource(getResources(), R.drawable.ghost);
         //up = BitmapFactory.decodeResource(getResources(), R.drawable.up);
         up = BitmapFactory.decodeResource(getResources(),  R.drawable.up);
         down = BitmapFactory.decodeResource(getResources(),  R.drawable.down);
@@ -159,6 +167,7 @@ public class Easy extends Activity implements View.OnTouchListener{
                         @Override
                         public void run() {
                             sprite = new Sprite(OurView.this, user);
+                            g1 = new Ghost(OurView.this, ghost);
                             p = new Paint();
                             while (ok == true) {
 
@@ -181,6 +190,8 @@ public class Easy extends Activity implements View.OnTouchListener{
                             //c.drawPicture(level_background.png);
                             c.drawARGB(150, 0, 0, 0);
                             sprite.onDraw(c);
+                            g1.onDraw(c);
+
                             drawButtons(c);
 
 
@@ -241,6 +252,34 @@ public class Easy extends Activity implements View.OnTouchListener{
                             coinTick = counter;
                             c.drawBitmap(coin, x, y, null);
                         }
+//
+
+                        public void maze(Canvas c){
+
+                        }
+
+//                        public void loadMaze(String filename) throws Exception {
+//                            // TODO: fill in this method to read the csv file and
+//                            // populate a list of obstacle Rectangles
+//                            Scanner inputFile = new Scanner(new File(filename));
+//                            while (inputFile.hasNextLine()) {
+//                                String[] course = inputFile.nextLine().split(",");
+//                                Rect line = new Rect();
+//                                obs.setLocation(Integer.parseInt(course[0]),
+//                                        Integer.parseInt(course[1]));
+//                                obs.setSize(Integer.parseInt(course[2]),
+//                                        Integer.parseInt(course[3]));
+//                                obstacles.add(obs);
+//                            }
+//                            obs1 = obstacles.get(0);
+//                            obs2 = obstacles.get(1);
+//                            obs3 = obstacles.get(2);
+//
+//                        }
+
+
+
+
 
                     }
 
