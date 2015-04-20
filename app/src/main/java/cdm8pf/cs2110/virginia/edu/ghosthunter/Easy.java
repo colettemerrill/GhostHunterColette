@@ -93,111 +93,95 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 
                 //up movement
-<<<<<<< HEAD
-
-                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 904 && event.getY() <= 1004){
+                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 904 && event.getY() <= 1004) {
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(-5);
-                    //Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
-                    //toast.show();
-=======
-                if(event.getX() < v.getWidth()/2 + up.getWidth()/2 && event.getX() > v.getWidth()/2 - up.getWidth()/2 && event.getY() > v.getHeight()-down.getHeight() && event.getY() < v.getHeight()-3*up.getHeight()){
-                    sprite.setXSpeed(0);
-                    sprite.setYSpeed(-5);
-
->>>>>>> sprite-images
                 }
 
-                //right movement
-                if(event.getX() <= 450 && event.getX() >= 350 && event.getY() >= 1050 && event.getY() <= 1152){
+                    //right movement
+                    if (event.getX() <= 450 && event.getX() >= 350 && event.getY() >= 1050 && event.getY() <= 1152) {
 
-                   sprite.setXSpeed(5);
-                   sprite.setYSpeed(0);
+                        sprite.setXSpeed(5);
+                        sprite.setYSpeed(0);
 //
-                }
-                //down movement
-<<<<<<< HEAD
-                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 1050 && event.getY() <= 1152){
-=======
-                if(event.getX() > 200 && event.getX() < 400){
->>>>>>> sprite-images
-                    sprite.setXSpeed(0);
-                    sprite.setYSpeed(5);
-                }
-                //left movement
-<<<<<<< HEAD
-                if(event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 1050 && event.getY() <= 1152){
-=======
-                if(event.getX() > 400 && event.getX() < 600){
->>>>>>> sprite-images
-                    sprite.setXSpeed(-5);
-                    sprite.setYSpeed(0);
-                }
-                //stop movement
-                if(event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 1050 && event.getY() <= 1152){
-                    sprite.setXSpeed(0);
-                    sprite.setYSpeed(0);
-                }
+                    }
+                    //down movement
 
-
-                break;
-            case MotionEvent.ACTION_UP:
-                    sprite.setXSpeed(0);
-                    sprite.setYSpeed(0);
-                Toast toast2 = Toast.makeText(getApplicationContext(), "up", Toast.LENGTH_SHORT);
-                toast2.show();
-
-                break;
-        }
-        return false;
-    }
-
-
-    //The gameplay view
-    public class OurView extends SurfaceView implements Runnable{
-
-    Thread t = null;
-    SurfaceHolder holder;
-    boolean ok = true;
-
-
-    public OurView(Context context) {
-        super(context);
-        holder = getHolder();
-    }
-
-    @Override
-    public void run() {
-        sprite = new Sprite(OurView.this, user);
-        p = new Paint();
-        while(ok == true){
-
-            if(!holder.getSurface().isValid()) {
-                continue;
-            }
-            Canvas c = holder.lockCanvas();
-            onDraw(c);
-            holder.unlockCanvasAndPost(c);
+                    if (event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 1050 && event.getY() <= 1152) {
 
 
 
+                            sprite.setXSpeed(0);
+                            sprite.setYSpeed(5);
+                    }
+                        //left movement
 
-        }
-
-
-
-    }
-
-//What is being drawn each time
-    protected void onDraw(Canvas c) {
-        counter++;
-        //c.drawPicture(level_background.png);
-        c.drawARGB(150, 0, 0, 0);
-        sprite.onDraw(c);
-        drawButtons(c);
-        drawScore(c);
+                        if (event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 1050 && event.getY() <= 1152) {
 
 
+
+                                sprite.setXSpeed(-5);
+                                sprite.setYSpeed(0);
+                        }
+                            //stop movement
+                            if (event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 1050 && event.getY() <= 1152) {
+                                sprite.setXSpeed(0);
+                                sprite.setYSpeed(0);
+                            }
+
+
+                            break;
+                            case MotionEvent.ACTION_UP:
+                                sprite.setXSpeed(0);
+                                sprite.setYSpeed(0);
+                                Toast toast2 = Toast.makeText(getApplicationContext(), "up", Toast.LENGTH_SHORT);
+                                toast2.show();
+
+                                break;
+                        }
+                        return false;
+                    }
+
+
+                    //The gameplay view
+                    public class OurView extends SurfaceView implements Runnable {
+
+                        Thread t = null;
+                        SurfaceHolder holder;
+                        boolean ok = true;
+
+
+                        public OurView(Context context) {
+                            super(context);
+                            holder = getHolder();
+                        }
+
+                        @Override
+                        public void run() {
+                            sprite = new Sprite(OurView.this, user);
+                            p = new Paint();
+                            while (ok == true) {
+
+                                if (!holder.getSurface().isValid()) {
+                                    continue;
+                                }
+                                Canvas c = holder.lockCanvas();
+                                onDraw(c);
+                                holder.unlockCanvasAndPost(c);
+
+
+                            }
+
+
+                        }
+
+                        //What is being drawn each time
+                        protected void onDraw(Canvas c) {
+                            counter++;
+                            //c.drawPicture(level_background.png);
+                            c.drawARGB(150, 0, 0, 0);
+                            sprite.onDraw(c);
+                            drawButtons(c);
 
 
 //        if(counter % 100 == 0) {
@@ -206,34 +190,35 @@ public class Easy extends Activity implements View.OnTouchListener{
 //            }
 //
 //        }
-    }
+                        }
 
-//if game is paused
-    public void pause(){
+                        //if game is paused
+                        public void pause() {
 
-        ok = false;
-        while(true){
-            try{
-                t.join();
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            break;
-        }
-        t = null;
+                            ok = false;
+                            while (true) {
+                                try {
+                                    t.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            }
+                            t = null;
 
-        backgroundMusic.release();
-    }
- //if game is resumed
-    public void resume(){
-        ok = true;
-        t = new Thread(this);
-        t.start();
-    }
+                            backgroundMusic.release();
+                        }
+
+                        //if game is resumed
+                        public void resume() {
+                            ok = true;
+                            t = new Thread(this);
+                            t.start();
+                        }
 
 
-//draws the buttons
-public void drawButtons(Canvas c){
+                        //draws the buttons
+                        public void drawButtons(Canvas c) {
 
     /*
     c.drawBitmap(up, 350,v.getHeight()-right.getHeight()-300 , null);
@@ -243,35 +228,21 @@ public void drawButtons(Canvas c){
     c.drawBitmap(stop, 350, v.getHeight()-stop.getHeight()-150, null);
     */
 
-    c.drawBitmap(up, 200,904, null);
-    c.drawBitmap(left, 50, 1050, null );
-    c.drawBitmap(right, 350, 1050,null  );
-    c.drawBitmap(down,200,1050, null);
-    c.drawBitmap(stop, 575, 1050, null);
+                            c.drawBitmap(up, 200, 904, null);
+                            c.drawBitmap(left, 50, 1050, null);
+                            c.drawBitmap(right, 350, 1050, null);
+                            c.drawBitmap(down, 200, 1050, null);
+                            c.drawBitmap(stop, 575, 1050, null);
 
-}
+                        }
 
-//draws the coin
-public void drawCoin(Canvas c, int x, int y){
-            coinTick = counter;
-            c.drawBitmap(coin,x, y, null);
-        }
+                        //draws the coin
+                        public void drawCoin(Canvas c, int x, int y) {
+                            coinTick = counter;
+                            c.drawBitmap(coin, x, y, null);
+                        }
 
-}
-public void drawScore(Canvas c){
-    Bitmap b = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
-    Canvas ca = new Canvas(b);
-    p.setTextSize(30);
-    p.setColor(R.color.red);
-    p.setAntiAlias(true);
-    ca.drawText("hello", 30, 40, p);
-    c.drawBitmap(b, 300, 300, p);
+                    }
 
 
-}
-
-
-
-
-}
-
+                }
