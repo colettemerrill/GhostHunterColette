@@ -90,31 +90,33 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 
                 //up movement
-                if(event.getX() < v.getWidth()/2 + up.getWidth()/2 && event.getX() > v.getWidth()/2 - up.getWidth()/2 && event.getY() > v.getHeight()-down.getHeight() && event.getY() < v.getHeight()-3*up.getHeight()){
-                    //sprite.setXSpeed(0);
+
+                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 904 && event.getY() <= 1004){
+                    sprite.setXSpeed(0);
                     sprite.setYSpeed(-5);
-                    Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
+
                 //right movement
-                if(event.getX() > 30 && event.getX() < 200){
+                if(event.getX() <= 450 && event.getX() >= 350 && event.getY() >= 1050 && event.getY() <= 1152){
 
                    sprite.setXSpeed(5);
                    sprite.setYSpeed(0);
 //
                 }
                 //down movement
-                if(event.getX() == 1){
+                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 1050 && event.getY() <= 1152){
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(5);
                 }
                 //left movement
-                if(event.getX() == 1){
+                if(event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 1050 && event.getY() <= 1152){
                     sprite.setXSpeed(-5);
                     sprite.setYSpeed(0);
                 }
                 //stop movement
-                if(event.getX() == 1){
+                if(event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 1050 && event.getY() <= 1152){
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(0);
                 }
@@ -128,9 +130,6 @@ public class Easy extends Activity implements View.OnTouchListener{
                 toast2.show();
 
                 break;
-
-
-
         }
         return false;
     }
@@ -212,11 +211,21 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 //draws the buttons
 public void drawButtons(Canvas c){
-    c.drawBitmap(up, 603, 0, null);
-    c.drawBitmap(right, v.getWidth()/2 + right.getWidth(), v.getHeight()-right.getHeight(),null  );
-    c.drawBitmap(down, v.getWidth()/2, v.getHeight()-down.getHeight(), null);
-    c.drawBitmap(left, v.getWidth()/2 - left.getWidth(), v.getHeight() - left.getHeight(), null );
-    c.drawBitmap(stop, 50, v.getHeight()-stop.getHeight(), null);
+
+    /*
+    c.drawBitmap(up, 350,v.getHeight()-right.getHeight()-300 , null);
+    c.drawBitmap(right, 500, v.getHeight()-right.getHeight()-150,null  );
+    c.drawBitmap(down,350,v.getHeight() - down.getHeight(), null);
+    c.drawBitmap(left, 200, v.getHeight() - left.getHeight()-150, null );
+    c.drawBitmap(stop, 350, v.getHeight()-stop.getHeight()-150, null);
+    */
+
+    c.drawBitmap(up, 200,904, null);
+    c.drawBitmap(left, 50, 1050, null );
+    c.drawBitmap(right, 350, 1050,null  );
+    c.drawBitmap(down,200,1050, null);
+    c.drawBitmap(stop, 575, 1050, null);
+
 }
 
 }
