@@ -1,6 +1,5 @@
 package cdm8pf.cs2110.virginia.edu.ghosthunter;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 
@@ -14,18 +13,14 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.*;
 
-import java.io.File;
 import java.lang.*;
-import java.util.Scanner;
-
-import android.widget.RadioGroup.*;
+import java.util.ArrayList;
 
 
 /**
@@ -44,12 +39,16 @@ public class Easy extends Activity implements View.OnTouchListener{
     Bitmap left;
     Bitmap stop;
     Bitmap coin;
-    Bitmap square;
     int counter;
     int coinTick;
     Paint p;
-    Ghost g1;
-    Bitmap ghost;
+    Ghost gb;
+    Ghost gg;
+    Ghost gp;
+    Bitmap ghostB;
+    Bitmap ghostG;
+    Bitmap ghostP;
+    ArrayList<Rect> rects;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +60,16 @@ public class Easy extends Activity implements View.OnTouchListener{
 
 
 
+
         setContentView(v);
 
        v.setOnTouchListener(this);
-        user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
-        ghost = BitmapFactory.decodeResource(getResources(), R.drawable.ghost);
-        //up = BitmapFactory.decodeResource(getResources(), R.drawable.up);
-        up = BitmapFactory.decodeResource(getResources(),  R.drawable.up);
-        down = BitmapFactory.decodeResource(getResources(),  R.drawable.down);
-        left = BitmapFactory.decodeResource(getResources(),  R.drawable.left);
-        right = BitmapFactory.decodeResource(getResources(),  R.drawable.right);
-        stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
-        coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+        createBits();
+        createMaze();
+
+
+
+
     }
 
 //if program is paused
@@ -87,6 +84,68 @@ public class Easy extends Activity implements View.OnTouchListener{
         super.onResume();
         v.resume();
     }
+
+
+    public void createBits(){
+        user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
+        ghostB = BitmapFactory.decodeResource(getResources(), R.drawable.ghost);
+        ghostG = BitmapFactory.decodeResource(getResources(), R.drawable.ghost3);
+        ghostP = BitmapFactory.decodeResource(getResources(), R.drawable.ghost2);
+        up = BitmapFactory.decodeResource(getResources(),  R.drawable.up);
+        down = BitmapFactory.decodeResource(getResources(),  R.drawable.down);
+        left = BitmapFactory.decodeResource(getResources(),  R.drawable.left);
+        right = BitmapFactory.decodeResource(getResources(),  R.drawable.right);
+        stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
+        coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+    }
+    public void createMaze(){
+        rects = new ArrayList<Rect>();
+        rects.add(new Rect(50, 100, 750, 105));
+        rects.add(new Rect(50, 100, 55, 860));
+        rects.add(new Rect(50, 860, 750, 865));
+        rects.add(new Rect(750, 100, 755, 865));
+        //1
+        rects.add(new Rect(120, 175, 125, 250));
+        rects.add(new Rect(120, 175, 325, 180));
+        rects.add(new Rect(400, 100, 405, 250));
+        rects.add(new Rect(210, 250, 405, 255));
+        rects.add(new Rect(555, 175, 670, 180));
+        //6
+        rects.add(new Rect(285,255,290,705));
+        rects.add(new Rect(120,325,195,330));
+        rects.add(new Rect(50,405,130,410));
+        rects.add(new Rect(195,325,200,480));
+        rects.add(new Rect(130,480,285,485));
+        //11
+        rects.add(new Rect(130, 480, 135, 705));
+        rects.add(new Rect(205, 560, 210, 780));
+        rects.add(new Rect(130, 780, 365, 785));
+        rects.add(new Rect(365, 705, 370, 860));
+        rects.add(new Rect(290, 620, 455, 625));
+        //16
+        rects.add(new Rect(365,330 ,370, 545));
+        rects.add(new Rect(365,705,530,710));
+        rects.add(new Rect(445, 780, 600, 785));
+        rects.add(new Rect(680,780,755,785));
+        rects.add(new Rect(596, 255, 600, 785));
+        //21
+        rects.add(new Rect(675, 480,680, 705));
+        rects.add(new Rect(600, 480,680,485));
+        rects.add(new Rect(675, 405, 755 , 410));
+        rects.add(new Rect(675, 250, 680, 410));
+        rects.add(new Rect(475,175,480, 330));
+        //26
+        rects.add(new Rect(480, 250, 600, 255));
+//        rects.add(new Rect(555, 250, 560, 330));
+        rects.add(new Rect(365, 325, 480, 330));
+        rects.add(new Rect(525, 405, 530, 710));
+        rects.add(new Rect(445, 405, 530, 410));
+        rects.add(new Rect(365, 545, 455, 550));
+
+
+
+    }
+
 
     //if button is pressed
 
@@ -168,7 +227,9 @@ public class Easy extends Activity implements View.OnTouchListener{
                         @Override
                         public void run() {
                             sprite = new Sprite(OurView.this, user);
-                            g1 = new Ghost(OurView.this, ghost);
+                            gb = new Ghost(OurView.this, ghostB);
+                            gg = new Ghost(OurView.this, ghostG);
+                            gp = new Ghost(OurView.this, ghostP);
                             p = new Paint();
                             while (ok == true) {
 
@@ -194,7 +255,11 @@ public class Easy extends Activity implements View.OnTouchListener{
                             drawMaze(c);
 
                             sprite.onDraw(c);
-                            g1.onDraw(c);
+                            gb.onDraw(c);
+                            gp.onDraw(c);
+                            gp.setXSpeed(10);
+                            gg.onDraw(c);
+                            gg.setXSpeed(20);
                             score(c);
 
                             drawButtons(c);
@@ -258,39 +323,20 @@ public void score(Canvas c){
 }
 
                         public void drawMaze(Canvas c){
-
-
                             Paint p = new Paint();
                             c.drawPaint(p);
                             p.setColor(Color.WHITE);
-                            p.setStrokeWidth(100);
+                            p.setStrokeWidth(20);
 
-                            c.drawRect(50, 50, 100, 100, p);
+                                for(int i = 0; i < rects.size(); i++) {
+                                    c.drawRect(rects.get(i), p);
+                                }
+
+
+
+
 
                         }
-
-//                        public void loadMaze(String filename) throws Exception {
-//                            // TODO: fill in this method to read the csv file and
-//                            // populate a list of obstacle Rectangles
-//                            Scanner inputFile = new Scanner(new File(filename));
-//                            while (inputFile.hasNextLine()) {
-//                                String[] course = inputFile.nextLine().split(",");
-//                                Rect line = new Rect();
-//                                obs.setLocation(Integer.parseInt(course[0]),
-//                                        Integer.parseInt(course[1]));
-//                                obs.setSize(Integer.parseInt(course[2]),
-//                                        Integer.parseInt(course[3]));
-//                                obstacles.add(obs);
-//                            }
-//                            obs1 = obstacles.get(0);
-//                            obs2 = obstacles.get(1);
-//                            obs3 = obstacles.get(2);
-//
-//                        }
-
-
-
-
 
                     }
 
