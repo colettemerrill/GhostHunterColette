@@ -25,7 +25,7 @@ public class Ghost {
         height = ghost.getHeight()/4;
         width = ghost.getWidth() /4;
         x = 100;
-        y = 200;
+        y = 180;
         xSpeed = 1;
         ySpeed = 0;
         direction = 0;
