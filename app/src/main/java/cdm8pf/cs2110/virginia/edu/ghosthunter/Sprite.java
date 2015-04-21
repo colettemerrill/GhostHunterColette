@@ -98,8 +98,12 @@ public class Sprite {
     public void setX(int nx) {
         x = nx;
     }
+    public void setY(int nx) { y = nx; }
     public int getX(){
         return x;
+    }
+    public int getY(){
+        return y;
     }
 
 

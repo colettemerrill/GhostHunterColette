@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by colettemerrill on 4/5/15.
  */
-public class Easy extends Activity implements View.OnTouchListener{
+public class Easy extends Activity implements View.OnTouchListener {
 
     MediaPlayer backgroundMusic;
 
@@ -49,6 +49,8 @@ public class Easy extends Activity implements View.OnTouchListener{
     Bitmap ghostG;
     Bitmap ghostP;
     ArrayList<Rect> rects;
+    Rect userHitbox;
+    Rect intersection;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +61,11 @@ public class Easy extends Activity implements View.OnTouchListener{
         v = new OurView(this);
 
 
-
-
         setContentView(v);
 
-       v.setOnTouchListener(this);
+        v.setOnTouchListener(this);
         createBits();
         createMaze();
-
-
 
 
     }
@@ -86,19 +84,20 @@ public class Easy extends Activity implements View.OnTouchListener{
     }
 
 
-    public void createBits(){
+    public void createBits() {
         user = BitmapFactory.decodeResource(getResources(), R.drawable.sprite);
         ghostB = BitmapFactory.decodeResource(getResources(), R.drawable.ghost);
         ghostG = BitmapFactory.decodeResource(getResources(), R.drawable.ghost3);
         ghostP = BitmapFactory.decodeResource(getResources(), R.drawable.ghost2);
-        up = BitmapFactory.decodeResource(getResources(),  R.drawable.up);
-        down = BitmapFactory.decodeResource(getResources(),  R.drawable.down);
-        left = BitmapFactory.decodeResource(getResources(),  R.drawable.left);
-        right = BitmapFactory.decodeResource(getResources(),  R.drawable.right);
+        up = BitmapFactory.decodeResource(getResources(), R.drawable.up);
+        down = BitmapFactory.decodeResource(getResources(), R.drawable.down);
+        left = BitmapFactory.decodeResource(getResources(), R.drawable.left);
+        right = BitmapFactory.decodeResource(getResources(), R.drawable.right);
         stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
         coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
     }
-    public void createMaze(){
+
+    public void createMaze() {
         rects = new ArrayList<Rect>();
         rects.add(new Rect(50, 100, 750, 105));
         rects.add(new Rect(50, 100, 55, 860));
@@ -111,11 +110,11 @@ public class Easy extends Activity implements View.OnTouchListener{
         rects.add(new Rect(210, 250, 405, 255));
         rects.add(new Rect(555, 175, 670, 180));
         //6
-        rects.add(new Rect(285,255,290,705));
-        rects.add(new Rect(120,325,195,330));
-        rects.add(new Rect(50,405,130,410));
-        rects.add(new Rect(195,325,200,480));
-        rects.add(new Rect(130,480,285,485));
+        rects.add(new Rect(285, 255, 290, 705));
+        rects.add(new Rect(120, 325, 195, 330));
+        rects.add(new Rect(50, 405, 130, 410));
+        rects.add(new Rect(195, 325, 200, 480));
+        rects.add(new Rect(130, 480, 285, 485));
         //11
         rects.add(new Rect(130, 480, 135, 705));
         rects.add(new Rect(205, 560, 210, 780));
@@ -123,17 +122,17 @@ public class Easy extends Activity implements View.OnTouchListener{
         rects.add(new Rect(365, 705, 370, 860));
         rects.add(new Rect(290, 620, 455, 625));
         //16
-        rects.add(new Rect(365,330 ,370, 545));
-        rects.add(new Rect(365,705,530,710));
+        rects.add(new Rect(365, 330, 370, 545));
+        rects.add(new Rect(365, 705, 530, 710));
         rects.add(new Rect(445, 780, 600, 785));
-        rects.add(new Rect(680,780,755,785));
+        rects.add(new Rect(680, 780, 755, 785));
         rects.add(new Rect(596, 255, 600, 785));
         //21
-        rects.add(new Rect(675, 480,680, 705));
-        rects.add(new Rect(600, 480,680,485));
-        rects.add(new Rect(675, 405, 755 , 410));
+        rects.add(new Rect(675, 480, 680, 705));
+        rects.add(new Rect(600, 480, 680, 485));
+        rects.add(new Rect(675, 405, 755, 410));
         rects.add(new Rect(675, 250, 680, 410));
-        rects.add(new Rect(475,175,480, 330));
+        rects.add(new Rect(475, 175, 480, 330));
         //26
         rects.add(new Rect(480, 250, 600, 255));
 //        rects.add(new Rect(555, 250, 560, 330));
@@ -141,9 +140,6 @@ public class Easy extends Activity implements View.OnTouchListener{
         rects.add(new Rect(525, 405, 530, 710));
         rects.add(new Rect(445, 405, 530, 410));
         rects.add(new Rect(365, 545, 455, 550));
-
-
-
     }
 
 
@@ -156,113 +152,160 @@ public class Easy extends Activity implements View.OnTouchListener{
             e.printStackTrace();
         }
 
-        switch(event.getAction()) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
-
                 //up movement
-                if(event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 904 && event.getY() <= 1004) {
+                if (event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 904 && event.getY() <= 1004) {
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(-5);
                 }
 
-                    //right movement
-                    if (event.getX() <= 450 && event.getX() >= 350 && event.getY() >= 1050 && event.getY() <= 1152) {
+                //right movement
+                if (event.getX() <= 450 && event.getX() >= 350 && event.getY() >= 1050 && event.getY() <= 1152) {
+                    sprite.setXSpeed(5);
+                    sprite.setYSpeed(0);
+                }
+                //down movement
 
-                        sprite.setXSpeed(5);
-                        sprite.setYSpeed(0);
-//
-                    }
-                    //down movement
+                if (event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 1050 && event.getY() <= 1152) {
+                    sprite.setXSpeed(0);
+                    sprite.setYSpeed(5);
+                }
 
-                    if (event.getX() <= 302 && event.getX() >= 200 && event.getY() >= 1050 && event.getY() <= 1152) {
+                //left movement
+                if (event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 1050 && event.getY() <= 1152) {
+                    sprite.setXSpeed(-5);
+                    sprite.setYSpeed(0);
+                }
+
+                //stop movement
+                if (event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 1050 && event.getY() <= 1152) {
+                    sprite.setXSpeed(0);
+                    sprite.setYSpeed(0);
+                }
+
+                break;
+            case MotionEvent.ACTION_UP:
+                sprite.setXSpeed(0);
+                sprite.setYSpeed(0);
+                Toast toast2 = Toast.makeText(getApplicationContext(), "up", Toast.LENGTH_SHORT);
+                toast2.show();
+
+                break;
+        }
+        return false;
+    }
 
 
+    //The gameplay view
+    public class OurView extends SurfaceView implements Runnable {
 
-                            sprite.setXSpeed(0);
-                            sprite.setYSpeed(5);
-                    }
-                        //left movement
-
-                        if (event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 1050 && event.getY() <= 1152) {
-
+        Thread t = null;
+        SurfaceHolder holder;
+        boolean ok = true;
 
 
-                                sprite.setXSpeed(-5);
-                                sprite.setYSpeed(0);
-                        }
-                            //stop movement
-                            if (event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 1050 && event.getY() <= 1152) {
-                                sprite.setXSpeed(0);
-                                sprite.setYSpeed(0);
+        public OurView(Context context) {
+            super(context);
+            holder = getHolder();
+        }
+
+        @Override
+        public void run() {
+            sprite = new Sprite(OurView.this, user);
+            gb = new Ghost(OurView.this, ghostB);
+            gg = new Ghost(OurView.this, ghostG);
+            gp = new Ghost(OurView.this, ghostP);
+            p = new Paint();
+            userHitbox = new Rect(sprite.getX(), sprite.getY(), sprite.getX() + 32, sprite.getY() + 48);
+
+            while (ok == true) {
+
+                if (!holder.getSurface().isValid()) {
+                    continue;
+                }
+                Canvas c = holder.lockCanvas();
+                onDraw(c);
+                holder.unlockCanvasAndPost(c);
+
+
+            }
+
+
+        }
+
+        //What is being drawn each time
+        protected void onDraw(Canvas c) {
+            super.onDraw(c);
+            counter++;
+            //c.drawPicture(level_background.png);
+            c.drawARGB(150, 0, 0, 0);
+            drawMaze(c);
+
+            sprite.onDraw(c);
+            userHitbox = new Rect(sprite.getX(), sprite.getY(), sprite.getX() + 32, sprite.getY() + 48);
+
+            /*
+            for (int i = 0; i < rects.size(); i++) {
+                if (userHitbox.intersect(rects.get(i))) {
+                    intersection.setIntersect(userHitbox, rects.get(i));
+                    if(intersection.width() < intersection.height()){
+                        if(intersection.width() > 0){
+                            if(userHitbox.left < intersection.left){
+                                sprite.setX(sprite.getX()-intersection.width());
                             }
-
-
-                            break;
-                            case MotionEvent.ACTION_UP:
-                                sprite.setXSpeed(0);
-                                sprite.setYSpeed(0);
-                                Toast toast2 = Toast.makeText(getApplicationContext(), "up", Toast.LENGTH_SHORT);
-                                toast2.show();
-
-                                break;
-                        }
-                        return false;
-                    }
-
-
-                    //The gameplay view
-                    public class OurView extends SurfaceView implements Runnable {
-
-                        Thread t = null;
-                        SurfaceHolder holder;
-                        boolean ok = true;
-
-
-                        public OurView(Context context) {
-                            super(context);
-                            holder = getHolder();
-                        }
-
-                        @Override
-                        public void run() {
-                            sprite = new Sprite(OurView.this, user);
-                            gb = new Ghost(OurView.this, ghostB);
-                            gg = new Ghost(OurView.this, ghostG);
-                            gp = new Ghost(OurView.this, ghostP);
-                            p = new Paint();
-                            while (ok == true) {
-
-                                if (!holder.getSurface().isValid()) {
-                                    continue;
-                                }
-                                Canvas c = holder.lockCanvas();
-                                onDraw(c);
-                                holder.unlockCanvasAndPost(c);
-
-
+                            if(userHitbox.left > intersection.left){
+                                sprite.setX(sprite.getX()+intersection.width());
                             }
-
-
                         }
+                        if(intersection.height() > 0){
+                            if(userHitbox.top < intersection.top){
+                                sprite.setY(sprite.getY()-intersection.height());
+                            }
+                            if(userHitbox.top > intersection.top){
+                                sprite.setY(sprite.getY()+intersection.height());
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            */
 
-                        //What is being drawn each time
-                        protected void onDraw(Canvas c) {
-                            super.onDraw(c);
-                            counter++;
-                            //c.drawPicture(level_background.png);
-                            c.drawARGB(150, 0, 0, 0);
-                            drawMaze(c);
+            /*if (mazeCollision(rects) == true) {
+                if(intersection.width() < intersection.height()){
+                    if(intersection.width() < 0){
+                        sprite.setX(sprite.getX()+intersection.width()+1);
+                    }
+                    else{
+                        sprite.setX(sprite.getX()-intersection.width()-1);
+                    }
+                }
+                if(intersection.width() > intersection.height()){
+                    if(intersection.height() < 0){
+                        sprite.setY(sprite.getY()+intersection.height()+1);
+                    }
+                    else{
+                        sprite.setY(sprite.getY()-intersection.height()-1);
+                    }
+                }
 
-                            sprite.onDraw(c);
-                            gb.onDraw(c);
-                            gp.onDraw(c);
-                            gp.setXSpeed(10);
-                            gg.onDraw(c);
-                            gg.setXSpeed(20);
-                            score(c);
+                //sprite.setXSpeed(0);
+                //sprite.setYSpeed(0);
+                //Toast toast3 = Toast.makeText(getApplicationContext(), "Collision!", Toast.LENGTH_SHORT);
+                //toast3.show();
 
-                            drawButtons(c);
+            }*/
+
+            gb.onDraw(c);
+            gp.onDraw(c);
+            gp.setXSpeed(10);
+            gg.onDraw(c);
+            gg.setXSpeed(20);
+            score(c);
+
+            drawButtons(c);
 
 
 //        if(counter % 100 == 0) {
@@ -271,74 +314,82 @@ public class Easy extends Activity implements View.OnTouchListener{
 //            }
 //
 //        }
-                        }
+        }
 
-                        //if game is paused
-                        public void pause() {
+        //if game is paused
+        public void pause() {
 
-                            ok = false;
-                            while (true) {
-                                try {
-                                    t.join();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                            }
-                            t = null;
-
-                            backgroundMusic.release();
-                        }
-
-                        //if game is resumed
-                        public void resume() {
-                            ok = true;
-                            t = new Thread(this);
-                            t.start();
-                        }
-
-
-                        //draws the buttons
-                        public void drawButtons(Canvas c) {
-                            c.drawBitmap(up, 200, 904, null);
-                            c.drawBitmap(left, 50, 1050, null);
-                            c.drawBitmap(right, 350, 1050, null);
-                            c.drawBitmap(down, 200, 1050, null);
-                            c.drawBitmap(stop, 575, 1050, null);
-
-                        }
-
-                        //draws the coin
-                        public void drawCoin(Canvas c, int x, int y) {
-                            coinTick = counter;
-                            c.drawBitmap(coin, x, y, null);
-                        }
-
-
-public void score(Canvas c){
-    Paint p = new Paint();
-    p.setColor(Color.RED);
-    p.setTextSize(30);
-    c.drawText("Score: " + counter, 500, 100, p);
-}
-
-                        public void drawMaze(Canvas c){
-                            Paint p = new Paint();
-                            c.drawPaint(p);
-                            p.setColor(Color.WHITE);
-                            p.setStrokeWidth(20);
-
-                                for(int i = 0; i < rects.size(); i++) {
-                                    c.drawRect(rects.get(i), p);
-                                }
-
-
-
-
-
-                        }
-
-                    }
-
-
+            ok = false;
+            while (true) {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                break;
+            }
+            t = null;
+
+            backgroundMusic.release();
+        }
+
+        //if game is resumed
+        public void resume() {
+            ok = true;
+            t = new Thread(this);
+            t.start();
+        }
+
+
+        //draws the buttons
+        public void drawButtons(Canvas c) {
+            c.drawBitmap(up, 200, 904, null);
+            c.drawBitmap(left, 50, 1050, null);
+            c.drawBitmap(right, 350, 1050, null);
+            c.drawBitmap(down, 200, 1050, null);
+            c.drawBitmap(stop, 575, 1050, null);
+
+        }
+
+        //draws the coin
+        public void drawCoin(Canvas c, int x, int y) {
+            coinTick = counter;
+            c.drawBitmap(coin, x, y, null);
+        }
+
+
+        public void score(Canvas c) {
+            Paint p = new Paint();
+            p.setColor(Color.RED);
+            p.setTextSize(30);
+            c.drawText("Score: " + counter, 500, 100, p);
+        }
+
+        public void drawMaze(Canvas c) {
+            Paint p = new Paint();
+            c.drawPaint(p);
+            p.setColor(Color.WHITE);
+            p.setStrokeWidth(20);
+
+            for (int i = 0; i < rects.size(); i++) {
+                c.drawRect(rects.get(i), p);
+            }
+
+            c.drawRect(userHitbox, p);
+        }
+
+        public boolean mazeCollision(ArrayList<Rect> s) {
+            boolean retValue = false;
+            for (int i = 0; i < s.size(); i++) {
+                if (userHitbox.intersect(s.get(i))) {
+                    retValue = true;
+                    intersection.setIntersect(userHitbox, s.get(i));
+                    break;
+                }
+            }
+            return retValue;
+        }
+
+
+    }
+}
