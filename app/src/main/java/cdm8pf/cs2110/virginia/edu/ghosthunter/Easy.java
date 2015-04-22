@@ -49,12 +49,13 @@ public class Easy extends Activity implements View.OnTouchListener {
     Bitmap ghostG;
     Bitmap ghostP;
     ArrayList<Rect> rects;
-    Rect userHitbox;
+    ArrayList<Ghost> ghosts;
     Rect intersection;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         counter = 0;
+        ghosts = new ArrayList<Ghost>();
 
         backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
         backgroundMusic.start();
@@ -142,6 +143,17 @@ public class Easy extends Activity implements View.OnTouchListener {
         rects.add(new Rect(365, 545, 455, 550));
     }
 
+    public void createGhosts(){
+
+        ghosts.add(gp);
+        ghosts.add(gg);
+        ghosts.add(gb);
+
+
+
+
+    }
+
 
     //if button is pressed
 
@@ -216,9 +228,15 @@ public class Easy extends Activity implements View.OnTouchListener {
             sprite = new Sprite(OurView.this, user);
             gb = new Ghost(OurView.this, ghostB);
             gg = new Ghost(OurView.this, ghostG);
+            gg.setXSpeed(5);
             gp = new Ghost(OurView.this, ghostP);
+            gp.setXSpeed(10);
+            ghosts.add(gb);
+            ghosts.add(gg);
+            ghosts.add(gp);
+
             p = new Paint();
-            userHitbox = new Rect(sprite.getX(), sprite.getY(), sprite.getX() + 32, sprite.getY() + 48);
+
 
             while (ok == true) {
 
@@ -244,65 +262,31 @@ public class Easy extends Activity implements View.OnTouchListener {
             drawMaze(c);
 
             sprite.onDraw(c);
-            userHitbox = new Rect(sprite.getX(), sprite.getY(), sprite.getX() + 32, sprite.getY() + 48);
 
-            /*
+
             for (int i = 0; i < rects.size(); i++) {
-                if (userHitbox.intersect(rects.get(i))) {
-                    intersection.setIntersect(userHitbox, rects.get(i));
-                    if(intersection.width() < intersection.height()){
-                        if(intersection.width() > 0){
-                            if(userHitbox.left < intersection.left){
-                                sprite.setX(sprite.getX()-intersection.width());
-                            }
-                            if(userHitbox.left > intersection.left){
-                                sprite.setX(sprite.getX()+intersection.width());
-                            }
-                        }
-                        if(intersection.height() > 0){
-                            if(userHitbox.top < intersection.top){
-                                sprite.setY(sprite.getY()-intersection.height());
-                            }
-                            if(userHitbox.top > intersection.top){
-                                sprite.setY(sprite.getY()+intersection.height());
-                            }
-                        }
-                    }
-                    break;
+                if(sprite.collision(sprite.getUserHitbox(),rects.get(i))){
+
+                    sprite.setXSpeed(0);
+                    sprite.setYSpeed(0);
                 }
             }
-            */
 
-            /*if (mazeCollision(rects) == true) {
-                if(intersection.width() < intersection.height()){
-                    if(intersection.width() < 0){
-                        sprite.setX(sprite.getX()+intersection.width()+1);
-                    }
-                    else{
-                        sprite.setX(sprite.getX()-intersection.width()-1);
-                    }
+            for (int i = 0; i < ghosts.size(); i++) {
+                if(sprite.collision(sprite.getUserHitbox(),rects.get(i))){
+
+                    sprite.setXSpeed(0);
+                    sprite.setYSpeed(0);
                 }
-                if(intersection.width() > intersection.height()){
-                    if(intersection.height() < 0){
-                        sprite.setY(sprite.getY()+intersection.height()+1);
-                    }
-                    else{
-                        sprite.setY(sprite.getY()-intersection.height()-1);
-                    }
-                }
+            }
 
-                //sprite.setXSpeed(0);
-                //sprite.setYSpeed(0);
-                //Toast toast3 = Toast.makeText(getApplicationContext(), "Collision!", Toast.LENGTH_SHORT);
-                //toast3.show();
 
-            }*/
+            for(int i = 0; i < ghosts.size(); i++){
+                ghosts.get(i).onDraw(c);
 
-            gb.onDraw(c);
-            gp.onDraw(c);
-            gp.setXSpeed(10);
-            gg.onDraw(c);
-            gg.setXSpeed(20);
+            }
+
+
             score(c);
 
             drawButtons(c);
@@ -375,15 +359,15 @@ public class Easy extends Activity implements View.OnTouchListener {
                 c.drawRect(rects.get(i), p);
             }
 
-            c.drawRect(userHitbox, p);
+            c.drawRect(sprite.getUserHitbox(), p);
         }
 
         public boolean mazeCollision(ArrayList<Rect> s) {
             boolean retValue = false;
             for (int i = 0; i < s.size(); i++) {
-                if (userHitbox.intersect(s.get(i))) {
+                if (sprite.getUserHitbox().intersect(s.get(i))) {
                     retValue = true;
-                    intersection.setIntersect(userHitbox, s.get(i));
+                    intersection.setIntersect(sprite.getUserHitbox(), s.get(i));
                     break;
                 }
             }
