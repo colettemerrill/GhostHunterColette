@@ -15,7 +15,7 @@ public class Sprite {
     int height, width;
     Bitmap sprite;
     View ov;
-   // Rect hitbox;
+   Rect userHitbox;
     int direction;
     int currentFrame = 0;
 
@@ -32,7 +32,7 @@ public class Sprite {
         ySpeed = 0;
         direction = 0;
         currentFrame = 0;
-        //hitbox = new Rect(x,y, sprite.getHeight()/4, sprite.getWidth()/4);
+        userHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
     }
 
     private void update()  {
@@ -63,6 +63,7 @@ public class Sprite {
         currentFrame= ++currentFrame % 4;
         x += xSpeed;
         y +=  ySpeed;
+        userHitbox= new Rect(getX(), getY(), getX() + 34, getY() + 66);
 
     }
 
@@ -80,8 +81,19 @@ public class Sprite {
         Rect src = new Rect(srcX, srcY, srcX+ width, srcY + height);
         Rect d = new Rect(x, y, x+width, y+height);
         c.drawBitmap(sprite, src, d, null);
+
     }
 
+    public boolean collision(Rect r, Rect s){
+        if(r.intersect(s)){
+            return true;
+        }
+        else
+            return false;
+    }
+
+
+    public Rect getUserHitbox() {return userHitbox;}
 
     public int getXSpeed(){
         return xSpeed;
@@ -98,8 +110,12 @@ public class Sprite {
     public void setX(int nx) {
         x = nx;
     }
+    public void setY(int nx) { y = nx; }
     public int getX(){
         return x;
+    }
+    public int getY(){
+        return y;
     }
 
 

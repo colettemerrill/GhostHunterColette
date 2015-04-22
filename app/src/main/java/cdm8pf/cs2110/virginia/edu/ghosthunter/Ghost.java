@@ -13,7 +13,7 @@ public class Ghost {
     int height, width;
     Bitmap ghost;
     View ov;
-    // Rect hitbox;
+    Rect ghostHitbox;
     int direction;
     int currentFrame = 0;
 
@@ -24,12 +24,12 @@ public class Ghost {
         ov = ourView;
         height = ghost.getHeight()/4;
         width = ghost.getWidth() /4;
-        x = 100;
-        y = 180;
-        xSpeed = 1;
+        x = 600;
+        y = 700;
+        xSpeed = 2;
         ySpeed = 0;
         direction = 0;
-        //hitbox = new Rect(x,y, sprite.getHeight()/4, sprite.getWidth()/4);
+        ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
     }
 
     private void update() {
@@ -53,7 +53,7 @@ public class Ghost {
 
         x += xSpeed;
         y +=  ySpeed;
-
+        ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
     }
 
 
@@ -74,6 +74,14 @@ public class Ghost {
     }
 
 
+    public boolean collision(Rect r, Rect s){
+        if(r.intersect(s)){
+            return true;
+        }
+        else
+            return false;
+    }
+
     public int getXSpeed(){
         return xSpeed;
     }
@@ -85,6 +93,12 @@ public class Ghost {
     }
     public void setYSpeed(int nY) {
         ySpeed = nY;
+    }
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
     }
 
 
