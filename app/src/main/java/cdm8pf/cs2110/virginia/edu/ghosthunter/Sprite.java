@@ -32,7 +32,7 @@ public class Sprite {
         ySpeed = 0;
         direction = 0;
         currentFrame = 0;
-        userHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
+        userHitbox = new Rect(getX(), getY(), getX() + 20, getY() + 40);
     }
 
     private void update()  {
@@ -63,7 +63,7 @@ public class Sprite {
         currentFrame= ++currentFrame % 4;
         x += xSpeed;
         y +=  ySpeed;
-        userHitbox= new Rect(getX(), getY(), getX() + 34, getY() + 66);
+        userHitbox= new Rect(getX(), getY(), getX() + 26, getY() + 51);
 
     }
 

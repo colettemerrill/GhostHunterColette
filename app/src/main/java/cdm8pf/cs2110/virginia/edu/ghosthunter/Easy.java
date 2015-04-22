@@ -39,6 +39,8 @@ public class Easy extends Activity implements View.OnTouchListener {
     Bitmap left;
     Bitmap stop;
     Bitmap coin;
+    Bitmap boom;
+    int boomTick;
     int counter;
     int coinTick;
     Paint p;
@@ -96,6 +98,7 @@ public class Easy extends Activity implements View.OnTouchListener {
         right = BitmapFactory.decodeResource(getResources(), R.drawable.right);
         stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
         coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+        boom = BitmapFactory.decodeResource(getResources(), R.drawable.boom);
     }
 
     public void createMaze() {
@@ -221,6 +224,7 @@ public class Easy extends Activity implements View.OnTouchListener {
         public OurView(Context context) {
             super(context);
             holder = getHolder();
+
         }
 
         @Override
@@ -293,6 +297,11 @@ public class Easy extends Activity implements View.OnTouchListener {
 
             drawButtons(c);
 
+//            if(counter/10 < 6){
+//                if(counter - boomTick < 400){
+//                drawBoom(c);}
+//            }
+
 
 //        if(counter % 100 == 0) {
 //            if(counter - coinTick < 400) {
@@ -300,56 +309,64 @@ public class Easy extends Activity implements View.OnTouchListener {
 //            }
 //
 //        }
-        }
-
-        //if game is paused
-        public void pause() {
-
-            ok = false;
-            while (true) {
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-            t = null;
-
-            backgroundMusic.release();
-        }
-
-        //if game is resumed
-        public void resume() {
-            ok = true;
-            t = new Thread(this);
-            t.start();
-        }
-
-
-        //draws the buttons
-        public void drawButtons(Canvas c) {
-            c.drawBitmap(up, 200, 904, null);
-            c.drawBitmap(left, 50, 1050, null);
-            c.drawBitmap(right, 350, 1050, null);
-            c.drawBitmap(down, 200, 1050, null);
-            c.drawBitmap(stop, 575, 1050, null);
 
         }
 
-        //draws the coin
-        public void drawCoin(Canvas c, int x, int y) {
-            coinTick = counter;
-            c.drawBitmap(coin, x, y, null);
+
+
+                        //if game is paused
+                        public void pause() {
+
+                            ok = false;
+                            while (true) {
+                                try {
+                                    t.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            }
+                            t = null;
+
+                            backgroundMusic.release();
+                        }
+
+                        //if game is resumed
+                        public void resume() {
+                            ok = true;
+                            t = new Thread(this);
+                            t.start();
+                        }
+
+
+                        //draws the buttons
+                        public void drawButtons(Canvas c) {
+                            c.drawBitmap(up, 200, 904, null);
+                            c.drawBitmap(left, 50, 1050, null);
+                            c.drawBitmap(right, 350, 1050, null);
+                            c.drawBitmap(down, 200, 1050, null);
+                            c.drawBitmap(stop, 575, 1050, null);
+
+                        }
+
+                        //draws the coin
+                        public void drawCoin(Canvas c, int x, int y) {
+                            coinTick = counter;
+                            c.drawBitmap(coin, x, y, null);
+                        }
+        public void drawBoom(Canvas c) {
+            boomTick = counter;
+            c.drawBitmap(boom, sprite.getX()-10, sprite.getY()-20, null);
         }
 
 
-        public void score(Canvas c) {
-            Paint p = new Paint();
-            p.setColor(Color.RED);
-            p.setTextSize(30);
-            c.drawText("Score: " + counter, 500, 100, p);
-        }
+public void score(Canvas c){
+    Paint p = new Paint();
+    p.setColor(Color.RED);
+    p.setTextSize(50);
+    c.drawText("Score: " + counter/10, 500, 50, p);
+}
+
 
         public void drawMaze(Canvas c) {
             Paint p = new Paint();
