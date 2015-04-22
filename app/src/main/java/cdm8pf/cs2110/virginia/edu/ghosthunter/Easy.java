@@ -39,6 +39,9 @@ public class Easy extends Activity implements View.OnTouchListener{
     Bitmap left;
     Bitmap stop;
     Bitmap coin;
+    Bitmap gBomb;
+    Bitmap pBomb;
+    Bitmap bBomb;
     int counter;
     int coinTick;
     Paint p;
@@ -49,6 +52,9 @@ public class Easy extends Activity implements View.OnTouchListener{
     Bitmap ghostG;
     Bitmap ghostP;
     ArrayList<Rect> rects;
+    int score;
+    int finalScore;
+    int collectTick;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +103,9 @@ public class Easy extends Activity implements View.OnTouchListener{
         right = BitmapFactory.decodeResource(getResources(),  R.drawable.right);
         stop = BitmapFactory.decodeResource(getResources(), R.drawable.stop);
         coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+        gBomb = BitmapFactory.decodeResource(getResources(), R.drawable.gbomb);
+        pBomb = BitmapFactory.decodeResource(getResources(), R.drawable.pbomb);
+        bBomb = BitmapFactory.decodeResource(getResources(), R.drawable.bbomb);
     }
     public void createMaze(){
         rects = new ArrayList<Rect>();
@@ -217,6 +226,7 @@ public class Easy extends Activity implements View.OnTouchListener{
                         Thread t = null;
                         SurfaceHolder holder;
                         boolean ok = true;
+                        boolean gameOver= false;
 
 
                         public OurView(Context context) {
@@ -231,6 +241,7 @@ public class Easy extends Activity implements View.OnTouchListener{
                             gg = new Ghost(OurView.this, ghostG);
                             gp = new Ghost(OurView.this, ghostP);
                             p = new Paint();
+
                             while (ok == true) {
 
                                 if (!holder.getSurface().isValid()) {
@@ -239,11 +250,7 @@ public class Easy extends Activity implements View.OnTouchListener{
                                 Canvas c = holder.lockCanvas();
                                 onDraw(c);
                                 holder.unlockCanvasAndPost(c);
-
-
                             }
-
-
                         }
 
                         //What is being drawn each time
@@ -264,6 +271,12 @@ public class Easy extends Activity implements View.OnTouchListener{
 
                             drawButtons(c);
 
+
+//                            if(counter % 100 == 0) {
+//                                if(counter/10 - collectTick/10 < 5){
+//                                    drawCollectCoin(gBomb, c, 500, 500);
+//                                }
+//                            }
 
 //        if(counter % 100 == 0) {
 //            if(counter - coinTick < 400) {
@@ -313,15 +326,21 @@ public class Easy extends Activity implements View.OnTouchListener{
                             coinTick = counter;
                             c.drawBitmap(coin, x, y, null);
                         }
+                        public void drawCollectCoin(Bitmap b, Canvas c, int x, int y){
+                            collectTick = counter;
+                            c.drawBitmap(b,x,y,null);
+                        }
 
+                        //keeps track of score
+                        public void score(Canvas c){
+                            Paint p = new Paint();
+                            score = counter/10;
+                            p.setColor(Color.RED);
+                            p.setTextSize(50);
+                            c.drawText("SCORE: " + score, 500, 60, p);
+                        }
 
-public void score(Canvas c){
-    Paint p = new Paint();
-    p.setColor(Color.RED);
-    p.setTextSize(30);
-    c.drawText("Score: " + counter, 500, 100, p);
-}
-
+                       //draws maze to screen
                         public void drawMaze(Canvas c){
                             Paint p = new Paint();
                             c.drawPaint(p);
@@ -336,6 +355,23 @@ public void score(Canvas c){
 
 
 
+                        }
+                        //end game screen
+                        public void endGame(Canvas c){
+                            sprite.setXSpeed(0);
+                                sprite.setYSpeed(20);
+                                gb.setXSpeed(0);
+                                gb.setYSpeed(0);
+                                gg.setXSpeed(0);
+                                gg.setYSpeed(0);
+                                gp.setXSpeed(0);
+                                gp.setYSpeed(0);
+                            Paint p = new Paint();
+                            finalScore = score;
+                            p.setColor(Color.RED);
+                            p.setTextSize(200);
+                                c.drawText("GAME OVER!", 300, 200, p);
+                                c.drawText("SCORE: " + score, 300, 300, p);
                         }
 
                     }

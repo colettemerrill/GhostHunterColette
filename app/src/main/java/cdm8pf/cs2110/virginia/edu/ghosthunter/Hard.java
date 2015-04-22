@@ -300,9 +300,10 @@ public class Hard extends Activity implements View.OnTouchListener {
         //keeps track of score
         public void score(Canvas c){
             Paint p = new Paint();
+            int score = counter/10;
             p.setColor(Color.RED);
-            p.setTextSize(30);
-            c.drawText("Score: " + counter, 500, 100, p);
+            p.setTextSize(50);
+            c.drawText("SCORE: " + score, 500, 60, p);
         }
 
         //draws maze to screen
