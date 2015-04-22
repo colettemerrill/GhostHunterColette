@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -53,11 +54,18 @@ public class Easy extends Activity implements View.OnTouchListener {
     ArrayList<Rect> rects;
     ArrayList<Ghost> ghosts;
     Rect intersection;
+    Boolean bombRelease;
+    Boolean deadGhost;
+    int ghostx;
+    int ghosty;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         counter = 0;
         ghosts = new ArrayList<Ghost>();
+
+        bombRelease = false;
+
 
         backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
         backgroundMusic.start();
@@ -199,6 +207,13 @@ public class Easy extends Activity implements View.OnTouchListener {
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(0);
                 }
+                //bomb button
+                if (event.getX() <= 675 && event.getX() >= 575 && event.getY() >= 900 && event.getY() <= 1000) {
+                    bombRelease = true;
+                    boomTick = 20;
+                    coinTick = 40;
+                }
+
 
                 break;
             case MotionEvent.ACTION_UP:
@@ -276,13 +291,66 @@ public class Easy extends Activity implements View.OnTouchListener {
                 }
             }
 
-            for (int i = 0; i < ghosts.size(); i++) {
-                if(sprite.collision(sprite.getUserHitbox(),ghosts.get(i).getGhostHitbox())){
+            if(bombRelease && boomTick > 0){
+                boomTick--;
+                    Log.d("boomTick", ""+boomTick);
 
-                    sprite.setXSpeed(0);
-                    sprite.setYSpeed(0);
-                    ghosts.get(i).setXSpeed(0);
-                    ghosts.get(i).setYSpeed(0);
+                    drawBoom(c);
+                    for(int i = 0; i <ghosts.size(); i++){
+                        if(Math.abs(ghosts.get(i).getX()- sprite.getX()) < 50 && Math.abs(ghosts.get(i).getY() - sprite.getY()) < 50 ){
+                            ghostx = ghosts.get(i).getX();
+                            ghosty = ghosts.get(i).getY();
+                            ghosts.remove(ghosts.get(i));
+                            deadGhost = true;
+
+
+                        }
+
+                    }
+
+
+
+
+                if(boomTick == 1) {
+                    bombRelease = false;
+                }
+
+
+
+
+
+
+            }
+            if(deadGhost = true && coinTick > 0) {
+                coinTick--;
+                drawCoin(c, ghostx, ghosty);
+            }
+            else{
+                deadGhost = false;
+            }
+            if(!bombRelease) {
+                for (int i = 0; i < ghosts.size(); i++) {
+                    if (sprite.collision(sprite.getUserHitbox(), ghosts.get(i).getGhostHitbox())) {
+
+                        sprite.setXSpeed(0);
+                        sprite.setYSpeed(0);
+
+                        ghosts.get(i).setXSpeed(0);
+                        ghosts.get(i).setYSpeed(0);
+                        Paint p = new Paint();
+                        Paint w = new Paint();
+                        w.setColor(Color.WHITE);
+                        Rect h = new Rect(150, 350, 500, 700);
+                        c.drawRect(h, w);
+                        p.setColor(Color.RED);
+                        p.setTextSize(100);
+                        c.drawText("GAME OVER! ", 150, 400, p);
+                        c.drawText("Final Score: " + counter / 10, 150, 500, p);
+                        p.setTextSize(20);
+                        c.drawText("To play again, hit back button and select level", 100, 600, p);
+
+                        ok = false;
+                    }
                 }
             }
 
@@ -297,18 +365,7 @@ public class Easy extends Activity implements View.OnTouchListener {
 
             drawButtons(c);
 
-//            if(counter/10 < 6){
-//                if(counter - boomTick < 400){
-//                drawBoom(c);}
-//            }
 
-
-//        if(counter % 100 == 0) {
-//            if(counter - coinTick < 400) {
-//                drawCoin(c, 300, 300);
-//            }
-//
-//        }
 
         }
 
@@ -346,17 +403,29 @@ public class Easy extends Activity implements View.OnTouchListener {
                             c.drawBitmap(right, 350, 1050, null);
                             c.drawBitmap(down, 200, 1050, null);
                             c.drawBitmap(stop, 575, 1050, null);
+                            Paint p = new Paint();
+                            p.setColor(Color.WHITE);
+                            Rect r = new Rect(575, 900, 675, 1000 );
+                            c.drawRect(r, p);
+                            p.setColor(Color.RED);
+                            p.setTextSize(35);
+                            p.setFakeBoldText(true);
+                            c.drawText("BOMB", 575, 960,  p);
 
                         }
 
                         //draws the coin
                         public void drawCoin(Canvas c, int x, int y) {
-                            coinTick = counter;
                             c.drawBitmap(coin, x, y, null);
                         }
         public void drawBoom(Canvas c) {
-            boomTick = counter;
-            c.drawBitmap(boom, sprite.getX()-10, sprite.getY()-20, null);
+
+            c.drawBitmap(boom, sprite.getX()-20, sprite.getY()-20, null);
+
+                bombRelease = true;
+
+
+
         }
 
 
@@ -378,19 +447,6 @@ public void score(Canvas c){
                 c.drawRect(rects.get(i), p);
             }
 
-            c.drawRect(sprite.getUserHitbox(), p);
-        }
-
-        public boolean mazeCollision(ArrayList<Rect> s) {
-            boolean retValue = false;
-            for (int i = 0; i < s.size(); i++) {
-                if (sprite.getUserHitbox().intersect(s.get(i))) {
-                    retValue = true;
-                    intersection.setIntersect(sprite.getUserHitbox(), s.get(i));
-                    break;
-                }
-            }
-            return retValue;
         }
 
 

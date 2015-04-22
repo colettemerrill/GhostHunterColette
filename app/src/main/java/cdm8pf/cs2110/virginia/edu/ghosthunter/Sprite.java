@@ -26,8 +26,8 @@ public class Sprite {
         ov = ourView;
         height = sprite.getHeight()/4;
         width = sprite.getWidth() /4;
-        x = 600;
-        y = 600;
+        x = 430;
+        y = 450;
         xSpeed = 0;
         ySpeed = 0;
         direction = 0;

@@ -24,10 +24,11 @@ public class Ghost {
         ov = ourView;
         height = ghost.getHeight()/4;
         width = ghost.getWidth() /4;
-        x = 600;
-        y = 700;
-        xSpeed = 0;
-        ySpeed = 0;
+//        x = 80;
+//        y = 120;
+
+        xSpeed = 4;
+        ySpeed = 4;
         direction = 0;
         ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
     }
@@ -53,11 +54,27 @@ public class Ghost {
 
         x += xSpeed;
         y +=  ySpeed;
-        ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
+        ghostHitbox = new Rect(getX(), getY(), getX() + 26, getY() + 51);
     }
 
 
 
+    public void move1(){
+
+
+
+
+
+    }
+    public void move2(){
+
+    }
+    public void move3(){
+
+    }
+    public void move4(){
+
+    }
 
 
 
