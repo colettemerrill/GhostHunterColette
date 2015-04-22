@@ -26,7 +26,7 @@ public class Ghost {
         width = ghost.getWidth() /4;
         x = 600;
         y = 700;
-        xSpeed = 2;
+        xSpeed = 0;
         ySpeed = 0;
         direction = 0;
         ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
@@ -82,6 +82,7 @@ public class Ghost {
             return false;
     }
 
+    public Rect getGhostHitbox() {return ghostHitbox;}
     public int getXSpeed(){
         return xSpeed;
     }

@@ -273,10 +273,12 @@ public class Easy extends Activity implements View.OnTouchListener {
             }
 
             for (int i = 0; i < ghosts.size(); i++) {
-                if(sprite.collision(sprite.getUserHitbox(),rects.get(i))){
+                if(sprite.collision(sprite.getUserHitbox(),ghosts.get(i).getGhostHitbox())){
 
                     sprite.setXSpeed(0);
                     sprite.setYSpeed(0);
+                    ghosts.get(i).setXSpeed(0);
+                    ghosts.get(i).setYSpeed(0);
                 }
             }
 
