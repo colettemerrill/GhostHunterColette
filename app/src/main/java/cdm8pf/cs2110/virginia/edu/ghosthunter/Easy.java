@@ -98,6 +98,7 @@ public class Easy extends Activity implements View.OnTouchListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         counter = 0;
+        money = 0;
 
         ghosts = new ArrayList<Ghost>();
         points = new ArrayList<Point>();
@@ -165,6 +166,7 @@ public class Easy extends Activity implements View.OnTouchListener {
         boom = BitmapFactory.decodeResource(getResources(), R.drawable.boom);
         bomb = BitmapFactory.decodeResource(getResources(), R.drawable.bomb);
         shoe = BitmapFactory.decodeResource(getResources(), R.drawable.shoe);
+
     }
 
     //creates the maze rectangle parts
@@ -264,6 +266,14 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
                 }
+                if (event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 25 && event.getY() <= 70) {
+                   if(money >=50){
+                       money = money - 50;
+                       sprite.setNumBombs(sprite.getNumBombs()+1);
+                   }
+
+                }
+
 
 
                 break;
@@ -528,6 +538,7 @@ public class Easy extends Activity implements View.OnTouchListener {
                            c.drawBitmap(coin, src, d, null);
                         }
 
+
        //draws the boom image for when a bomb is released
         public void drawBoom(Canvas c) {
             c.drawBitmap(boom, sprite.getX()-20, sprite.getY()-20, null);
@@ -551,9 +562,10 @@ public void score(Canvas c){
             p.setTextSize(50);
             c.drawText("Bombs: " + sprite.getNumBombs(), 275, 50, p);
 
-            c.drawBitmap(coin, 100, 50, null);
-            p.setTextSize(40);
-           // c.drawText(""+, 150, 50, p);
+
+            p.setTextSize(30);
+            drawCoin(c, 100, 30);
+            c.drawText(""+money, 150, 50, p);
 
 
         }
