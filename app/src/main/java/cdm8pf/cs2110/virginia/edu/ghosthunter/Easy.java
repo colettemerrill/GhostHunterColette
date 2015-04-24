@@ -45,6 +45,7 @@ public class Easy extends Activity implements View.OnTouchListener {
     Bitmap boom;
     Bitmap bomb;
     Bitmap shoe;
+    int money;
     int boomTick;
     int speedTick;
     int score;
@@ -373,7 +374,7 @@ public class Easy extends Activity implements View.OnTouchListener {
                 for(int i = 0; i < coins.size(); i++) {
                     drawCoin(c, coins.get(i).x, coins.get(i).y);
                     if(Math.abs(sprite.getX()-coins.get(i).x) < 10 && Math.abs(sprite.getY() - coins.get(i).y) < 10){
-                       score = score +100;
+                      money = money + 10;
                         Paint p = new Paint();
                         p.setColor(Color.RED);
                         p.setTextSize(40);
@@ -387,6 +388,14 @@ public class Easy extends Activity implements View.OnTouchListener {
             else{
                 deadGhost = false;
             }
+
+            for(int i = 0; i < ghosts.size(); i++){
+                if(Math.abs(sprite.getX() - ghosts.get(i).getX()) < 40 && Math.abs(sprite.getY() - ghosts.get(i).getY()) < 40 ){
+                    Toast t = Toast.makeText(getApplicationContext(), "Ghost Near!", Toast.LENGTH_SHORT);
+                    t.show();
+                }
+            }
+
 
             //ghost sprite collisions and ending the game
             if(!bombRelease) {
@@ -537,6 +546,12 @@ public void score(Canvas c){
             p.setColor(Color.RED);
             p.setTextSize(50);
             c.drawText("Bombs: " + sprite.getNumBombs(), 275, 50, p);
+
+            c.drawBitmap(coin, 100, 50, null);
+            p.setTextSize(40);
+           // c.drawText(""+, 150, 50, p);
+
+
         }
 
 
