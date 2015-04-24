@@ -18,12 +18,14 @@ public class Sprite {
    Rect userHitbox;
     int direction;
     int currentFrame = 0;
+    int numBombs;
 
 
 
     public Sprite(View ourView, Bitmap p) {
         sprite = p;
         ov = ourView;
+        numBombs=3;
         height = sprite.getHeight()/4;
         width = sprite.getWidth() /4;
         x = 430;
@@ -117,6 +119,13 @@ public class Sprite {
     public int getY(){
         return y;
     }
+    public void setNumBombs(int num){
+        numBombs = num;
+    }
+    public int getNumBombs(){
+        return numBombs;
+    }
+
 
 
 }

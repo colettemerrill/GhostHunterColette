@@ -54,4 +54,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="71dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="How To Play: Use arrow buttons to make character move and stop. Use bomb button to drop a bomb that kill ghosts!"
+        android:textColor="@color/red"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/button_medium"
+        android:layout_toEndOf="@+id/button_medium" />
+
 </RelativeLayout>
