@@ -32,6 +32,7 @@ import java.util.Random;
 public class Easy extends Activity implements View.OnTouchListener {
 
     MediaPlayer backgroundMusic;
+    MediaPlayer soundEffect;
 
     OurView v;
     Sprite sprite;
@@ -110,7 +111,8 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
 
-        backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
+        backgroundMusic = MediaPlayer.create(this, R.raw.imagine_dragons);
+        backgroundMusic.setLooping(true);
         backgroundMusic.start();
         v = new OurView(this);
 
@@ -530,6 +532,8 @@ public class Easy extends Activity implements View.OnTouchListener {
         public void drawBoom(Canvas c) {
             c.drawBitmap(boom, sprite.getX()-20, sprite.getY()-20, null);
                 bombCollectible = true;
+            
+
         }
 
 //draws the current score
@@ -653,6 +657,7 @@ public void score(Canvas c){
             ok = true;
             t = new Thread(this);
             t.start();
+
         }
 
 

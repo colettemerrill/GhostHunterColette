@@ -48,7 +48,8 @@ public class Hard extends Activity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         counter = 0;
 
-        backgroundMusic = MediaPlayer.create(this, R.raw.logo_song);
+        backgroundMusic = MediaPlayer.create(this, R.raw.imagine_dragons);
+        backgroundMusic.setLooping(true);
         backgroundMusic.start();
         v = new OurView(this);
 

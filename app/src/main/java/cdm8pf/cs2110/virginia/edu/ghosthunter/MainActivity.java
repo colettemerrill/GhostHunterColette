@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        logoMusic = MediaPlayer.create(MainActivity.this, R.raw.logo_song);
+        logoMusic = MediaPlayer.create(MainActivity.this, R.raw.ready);
         logoMusic.start();
 
         Button easy = (Button) findViewById(R.id.button_easy);
