@@ -60,6 +60,11 @@ public class Ghost {
         }
 
         move1();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> fixing-coordinates
 
         x += xSpeed;
         y +=  ySpeed;
@@ -69,6 +74,14 @@ public class Ghost {
 
     }
 
+        if(x <  350){
+            xSpeed = 5;
+            ySpeed = 0;
+        }
+        if(y < 240){
+            xSpeed = 0;
+            ySpeed = 5;
+        }
 
     public void move1(){
         if(getX()==75 && getY()==120){
