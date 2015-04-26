@@ -27,8 +27,8 @@ public class Ghost {
 //        x = 80;
 //        y = 120;
 
-        xSpeed = 4;
-        ySpeed = 4;
+        xSpeed = 0;
+        ySpeed = 0;
         direction = 0;
         ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
     }
@@ -51,6 +51,9 @@ public class Ghost {
             direction = 2;
         }
 
+        move1();
+
+
 
         x += xSpeed;
         y +=  ySpeed;
@@ -61,6 +64,14 @@ public class Ghost {
 
     public void move1(){
 
+        if(x <  350){
+            xSpeed = 5;
+            ySpeed = 0;
+        }
+        if(y < 240){
+            xSpeed = 0;
+            ySpeed = 5;
+        }
 
 
 

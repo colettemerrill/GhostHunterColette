@@ -33,6 +33,7 @@ public class Easy extends Activity implements View.OnTouchListener {
 
     MediaPlayer backgroundMusic;
     MediaPlayer soundEffect;
+    MediaPlayer ding;
 
     OurView v;
     Sprite sprite;
@@ -113,6 +114,7 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
         backgroundMusic = MediaPlayer.create(this, R.raw.imagine_dragons);
+        ding = MediaPlayer.create(this, R.raw.ding);
         backgroundMusic.setLooping(true);
         backgroundMusic.start();
         v = new OurView(this);
@@ -280,8 +282,7 @@ public class Easy extends Activity implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 sprite.setXSpeed(0);
                 sprite.setYSpeed(0);
-                Toast toast2 = Toast.makeText(getApplicationContext(), "up", Toast.LENGTH_SHORT);
-                toast2.show();
+
 
                 break;
         }
@@ -402,9 +403,14 @@ public class Easy extends Activity implements View.OnTouchListener {
             }
 
             for(int i = 0; i < ghosts.size(); i++){
-                if(Math.abs(sprite.getX() - ghosts.get(i).getX()) < 40 && Math.abs(sprite.getY() - ghosts.get(i).getY()) < 40 ){
-                    Toast t = Toast.makeText(getApplicationContext(), "Ghost Near!", Toast.LENGTH_SHORT);
-                    t.show();
+                if(Math.abs(sprite.getX() - ghosts.get(i).getX()) < 100 && Math.abs(sprite.getY() - ghosts.get(i).getY()) < 100 ){
+                   // Toast t = Toast.makeText(getApplicationContext(), "Ghost Near!", Toast.LENGTH_SHORT);
+                   // t.show();
+                    Paint p = new Paint();
+                    p.setColor(Color.WHITE);
+                    p.setTextSize(30);
+                    c.drawText("Ghost Near!" , 350, 950, p);
+                    ding.start();
                 }
             }
 
@@ -459,7 +465,7 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
             //puts a shoe out
-            if(counter == 50) {
+            if(counter % 1000 == 0) {
                 shoeCollectible = true;
                 shoeTick = 500;
                 shoeX = randomShoe().x;
@@ -586,11 +592,11 @@ public void score(Canvas c){
 
         //random location for bomb
         public Point randomBomb(){
-            Point p = new Point(100, 200);
-            Point p1 = new Point(200, 200);
-            Point p2 = new Point(300, 500);
-            Point p3 = new Point(400, 500);
-            Point p4 = new Point(500, 700);
+            Point p = new Point(300, 250);
+            Point p1 = new Point(90, 810);
+            Point p2 = new Point(500, 650);
+            Point p3 = new Point(630, 840);
+            Point p4 = new Point(630, 230);
             points.add(p);
             points.add(p1);
             points.add(p2);
@@ -608,11 +614,11 @@ public void score(Canvas c){
 
         //random location for a shoe
         public Point randomShoe(){
-            Point p = new Point(100, 200);
-            Point p1 = new Point(200, 200);
-            Point p2 = new Point(300, 500);
-            Point p3 = new Point(400, 500);
-            Point p4 = new Point(500, 700);
+            Point p = new Point(250, 510);
+            Point p1 = new Point(380, 210);
+            Point p2 = new Point(380, 820);
+            Point p3 = new Point(500, 120);
+            Point p4 = new Point(550, 350);
             points.add(p);
             points.add(p1);
             points.add(p2);
