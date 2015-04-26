@@ -199,7 +199,7 @@ public class Easy extends Activity implements View.OnTouchListener {
         rects.add(new Rect(365, 705, 530, 710));
         rects.add(new Rect(445, 780, 600, 785));
         rects.add(new Rect(680, 780, 755, 785));
-        rects.add(new Rect(596, 255, 600, 785));
+        rects.add(new Rect(595, 255, 600, 785));
         //21
         rects.add(new Rect(675, 480, 680, 705));
         rects.add(new Rect(600, 480, 680, 485));
@@ -315,6 +315,7 @@ public class Easy extends Activity implements View.OnTouchListener {
             ghosts.add(gg);
             ghosts.add(gp);
 
+
             p = new Paint();
 
 
@@ -374,10 +375,12 @@ public class Easy extends Activity implements View.OnTouchListener {
                             coinTick = 70;
                         }
                     }
+
                 if(boomTick == 1) {
                     sprite.setNumBombs(sprite.getNumBombs()-1);
                     bombRelease = false;
                 }
+
             }
 
             //draws a coin where a ghost was removed
