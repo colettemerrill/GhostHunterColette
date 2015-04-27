@@ -211,9 +211,15 @@ public class Hard extends Activity implements View.OnTouchListener {
         //what happens each millisecond
         public void run() {
             sprite = new Sprite(OurView.this, user);
+<<<<<<< HEAD
             gb = new Ghost(OurView.this, ghostB, 75, 120);
             gg = new Ghost(OurView.this, ghostG, 620, 425);
             gp = new Ghost(OurView.this, ghostP, 240, 725);
+=======
+            gb = new Ghost(OurView.this, ghostB, 75, 100);
+            gg = new Ghost(OurView.this, ghostG, 100, 200);
+            gp = new Ghost(OurView.this, ghostP, 200, 300);
+>>>>>>> origin/master
             p = new Paint();
             while (ok == true) {
 

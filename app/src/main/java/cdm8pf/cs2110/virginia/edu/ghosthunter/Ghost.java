@@ -23,18 +23,29 @@ public class Ghost {
     boolean topRightRepeat;
     boolean topRight2Repeat;
     boolean middleRepeat;
+    int run;
 
 
 
+<<<<<<< HEAD
     public Ghost(View ourView, Bitmap p, int xCoord, int yCoord) {
+=======
+    public Ghost(View ourView, Bitmap p, int x, int y) {
+>>>>>>> origin/master
         ghost = p;
         ov = ourView;
         height = ghost.getHeight()/4;
         width = ghost.getWidth() /4;
+<<<<<<< HEAD
         x = xCoord;
         y = yCoord;
+=======
+        this.x = x;
+        this.y = y;
+>>>>>>> origin/master
 
-        xSpeed = 0;
+
+        xSpeed = 5;
         ySpeed = 0;
         direction = 0;
         ghostHitbox = new Rect(getX(), getY(), getX() + 34, getY() + 66);
@@ -59,7 +70,12 @@ public class Ghost {
             direction = 2;
         }
 
+<<<<<<< HEAD
         move1();
+=======
+
+            move1();
+>>>>>>> origin/master
 
         x += xSpeed;
         y +=  ySpeed;
@@ -68,7 +84,10 @@ public class Ghost {
 
 
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     public void move1(){
         if(getX()==75 && getY()==120){
             middleRepeat = false;
@@ -363,6 +382,8 @@ public class Ghost {
             ySpeed = 0;
         }
     }
+
+
 
     public void onDraw(Canvas c){
         update();
