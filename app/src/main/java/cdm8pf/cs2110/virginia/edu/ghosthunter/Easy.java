@@ -307,10 +307,10 @@ public class Easy extends Activity implements View.OnTouchListener {
         @Override
         public void run() {
             sprite = new Sprite(OurView.this, user);
-            gb = new Ghost(OurView.this, ghostB);
-            gg = new Ghost(OurView.this, ghostG);
+            gb = new Ghost(OurView.this, ghostB, 75, 120);
+            gg = new Ghost(OurView.this, ghostG, 620, 425);
             gg.setXSpeed(5);
-            gp = new Ghost(OurView.this, ghostP);
+            gp = new Ghost(OurView.this, ghostP, 240, 725);
             gp.setXSpeed(10);
             ghosts.add(gb);
             ghosts.add(gg);
@@ -433,7 +433,7 @@ public class Easy extends Activity implements View.OnTouchListener {
                         p.setColor(Color.RED);
                         p.setTextSize(100);
                         c.drawText("GAME OVER! ", 100, 400, p);
-                        c.drawText("Final Score: " + score/10, 100, 500, p);
+                        c.drawText("Final Score: " + score/10, 75, 500, p);
                         p.setTextSize(20);
                         c.drawText("To play again, hit back button and select level", 200, 600, p);
 
@@ -639,11 +639,11 @@ public void score(Canvas c){
 
         //random location for a ghost
         public Point randomGhost(){
-            Point p = new Point(100, 200);
-            Point p1 = new Point(200, 200);
-            Point p2 = new Point(300, 500);
-            Point p3 = new Point(400, 500);
-            Point p4 = new Point(500, 700);
+            Point p = new Point(75, 120);
+            Point p1 = new Point(430, 270);
+            Point p2 = new Point(240, 725);
+            Point p3 = new Point(390, 725);
+            Point p4 = new Point(160, 500);
             points.add(p);
             points.add(p1);
             points.add(p2);

@@ -26,13 +26,13 @@ public class Ghost {
 
 
 
-    public Ghost(View ourView, Bitmap p) {
+    public Ghost(View ourView, Bitmap p, int xCoord, int yCoord) {
         ghost = p;
         ov = ourView;
         height = ghost.getHeight()/4;
         width = ghost.getWidth() /4;
-        x = 75;
-        y = 120;
+        x = xCoord;
+        y = yCoord;
 
         xSpeed = 0;
         ySpeed = 0;
@@ -60,11 +60,6 @@ public class Ghost {
         }
 
         move1();
-<<<<<<< HEAD
-=======
-
-
->>>>>>> fixing-coordinates
 
         x += xSpeed;
         y +=  ySpeed;
@@ -73,15 +68,6 @@ public class Ghost {
 
 
     }
-
-        if(x <  350){
-            xSpeed = 5;
-            ySpeed = 0;
-        }
-        if(y < 240){
-            xSpeed = 0;
-            ySpeed = 5;
-        }
 
     public void move1(){
         if(getX()==75 && getY()==120){

@@ -215,9 +215,9 @@ public class Medium extends Activity implements View.OnTouchListener {
         //what happens each millisecond
         public void run() {
             sprite = new Sprite(OurView.this, user);
-            gb = new Ghost(OurView.this, ghostB);
-            gg = new Ghost(OurView.this, ghostG);
-            gp = new Ghost(OurView.this, ghostP);
+            gb = new Ghost(OurView.this, ghostB, 75, 120);
+            gg = new Ghost(OurView.this, ghostG, 620, 425);
+            gp = new Ghost(OurView.this, ghostP, 240, 725);
             p = new Paint();
             while (ok == true) {
 
