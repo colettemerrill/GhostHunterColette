@@ -60,7 +60,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="How To Play: Use arrow buttons to make character move and stop. Collect shoes to make character run faster, and bombs to increase bomb count. You can also buy more bombs for 30 coins. Use bomb button to drop a bomb that kill ghosts!"
         android:textColor="@color/red"
-        android:textSize="10dp"
+        android:textSize="25dp"
         android:gravity="center"
         android:id="@+id/textView2"
         android:layout_alignParentBottom="true"
