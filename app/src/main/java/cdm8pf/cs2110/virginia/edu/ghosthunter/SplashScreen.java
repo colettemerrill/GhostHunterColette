@@ -14,7 +14,7 @@ package cdm8pf.cs2110.virginia.edu.ghosthunter;
  */
 public class SplashScreen extends Activity {
     private static String TAG = SplashScreen.class.getName(); // Used to report an error in run()
-    private static long SLEEP_TIME = 1; // Set the duration of the splash screen
+    private static long SLEEP_TIME = 5; // Set the duration of the splash screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

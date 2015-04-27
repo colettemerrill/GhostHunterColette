@@ -274,8 +274,8 @@ public class Easy extends Activity implements View.OnTouchListener {
 
                 }
                 if (event.getX() <= 150 && event.getX() >= 50 && event.getY() >= 25 && event.getY() <= 70) {
-                   if(money >=50){
-                       money = money - 50;
+                   if(money >=30){
+                       money = money - 30;
                        sprite.setNumBombs(sprite.getNumBombs()+1);
                    }
 
@@ -312,16 +312,9 @@ public class Easy extends Activity implements View.OnTouchListener {
         @Override
         public void run() {
             sprite = new Sprite(OurView.this, user);
-            gb = new Ghost(OurView.this, ghostB, 75, 120);
-<<<<<<< HEAD
-            gg = new Ghost(OurView.this, ghostG, 620, 425);
-            gg.setXSpeed(5);
-            gp = new Ghost(OurView.this, ghostP, 240, 725);
-            gp.setXSpeed(10);
-=======
-            gg = new Ghost(OurView.this, ghostG, 200, 300);
-            gp = new Ghost(OurView.this, ghostP, 200, 400);
->>>>>>> origin/master
+            gb = new Ghost(OurView.this, ghostB, 75, 120, 5);
+            gg = new Ghost(OurView.this, ghostG, 620, 425, 5);
+            gp = new Ghost(OurView.this, ghostP, 240, 725, 5);
             ghosts.add(gb);
             ghosts.add(gg);
             ghosts.add(gp);
@@ -400,7 +393,7 @@ public class Easy extends Activity implements View.OnTouchListener {
                 coinTick--;
                 for(int i = 0; i < coins.size(); i++) {
                     drawCoin(c, coins.get(i).x, coins.get(i).y);
-                    if(Math.abs(sprite.getX()-coins.get(i).x) < 10 && Math.abs(sprite.getY() - coins.get(i).y) < 10){
+                    if(Math.abs(sprite.getX()-coins.get(i).x) < 20 && Math.abs(sprite.getY() - coins.get(i).y) < 20){
                       coinSound.start();
                         money = money + 10;
                         Paint p = new Paint();
@@ -419,8 +412,6 @@ public class Easy extends Activity implements View.OnTouchListener {
 
             for(int i = 0; i < ghosts.size(); i++){
                 if(Math.abs(sprite.getX() - ghosts.get(i).getX()) < 100 && Math.abs(sprite.getY() - ghosts.get(i).getY()) < 100 ){
-                   // Toast t = Toast.makeText(getApplicationContext(), "Ghost Near!", Toast.LENGTH_SHORT);
-                   // t.show();
                     Paint p = new Paint();
                     p.setColor(Color.WHITE);
                     p.setTextSize(30);
@@ -445,7 +436,7 @@ public class Easy extends Activity implements View.OnTouchListener {
                         p.setColor(Color.RED);
                         p.setTextSize(100);
                         c.drawText("GAME OVER! ", 100, 400, p);
-                        c.drawText("Final Score: " + score/10, 75, 500, p);
+                        c.drawText("Final Score:" + score/10, 65, 500, p);
                         p.setTextSize(20);
                         c.drawText("To play again, hit back button and select level", 200, 600, p);
 
@@ -460,16 +451,17 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
             //puts a bomb out every certain amount time
-            if(counter % 1000 == 0) {
+            if(counter % 300 == 0) {
                 bombCollectible = true;
                 collectibleTick = 300;
                 bombX = randomBomb().x;
                 bombY= randomBomb().y;
+
             }
             if(bombCollectible == true && collectibleTick > 0) {
                 collectibleTick--;
                 c.drawBitmap(bomb, bombX, bombY, null);
-                if(Math.abs(sprite.getX()-bombX) < 10 && Math.abs(sprite.getY() -bombY) < 10){
+                if(Math.abs(sprite.getX()-bombX) < 20 && Math.abs(sprite.getY() -bombY) < 20){
                     sprite.setNumBombs(sprite.getNumBombs()+1);
                     bombCollectible = false;
                 }
@@ -480,16 +472,17 @@ public class Easy extends Activity implements View.OnTouchListener {
 
 
             //puts a shoe out
-            if(counter % 1000 == 0) {
+            if(counter % 650 == 0) {
                 shoeCollectible = true;
                 shoeTick = 500;
                 shoeX = randomShoe().x;
                 shoeY= randomShoe().y;
+
             }
             if(shoeCollectible == true && shoeTick > 0) {
                 shoeTick--;
                 c.drawBitmap(shoe, shoeX, shoeY, null);
-                if (Math.abs(sprite.getX() - (shoeX+10)) < 20 && Math.abs(sprite.getY() - (shoeY+10)) < 20) {
+                if (Math.abs(sprite.getX() - (shoeX+10)) < 30 && Math.abs(sprite.getY() - (shoeY+10)) < 30) {
                     shoeCollectible = false;
                     speedTick = 100;
                 }
@@ -515,6 +508,16 @@ public class Easy extends Activity implements View.OnTouchListener {
                 y3 = 5;
                 x4 = -5;
                 y4 = 0;
+            }
+
+            if(counter % 150 == 0){
+                ghosts.add(new Ghost(OurView.this, ghostB, randomGhost().x, randomGhost().y, 5));
+            }
+            if(counter %200 == 0){
+                ghosts.add(new Ghost(OurView.this, ghostP,randomGhost().x, randomGhost().y, 5));
+            }
+            if(counter %330 == 0){
+                ghosts.add(new Ghost(OurView.this, ghostG, randomGhost().x, randomGhost().y, 5));
             }
 
             //displays the score, number of buttons, and draws buttons to screen
@@ -607,11 +610,11 @@ public void score(Canvas c){
 
         //random location for bomb
         public Point randomBomb(){
-            Point p = new Point(300, 250);
-            Point p1 = new Point(90, 810);
-            Point p2 = new Point(500, 650);
-            Point p3 = new Point(630, 840);
-            Point p4 = new Point(630, 230);
+            Point p = new Point(300, 300);
+            Point p1 = new Point(90, 800);
+            Point p2 = new Point(450, 650);
+            Point p3 = new Point(630, 800);
+            Point p4 = new Point(620, 230);
             points.add(p);
             points.add(p1);
             points.add(p2);
@@ -629,11 +632,11 @@ public void score(Canvas c){
 
         //random location for a shoe
         public Point randomShoe(){
-            Point p = new Point(250, 510);
-            Point p1 = new Point(380, 210);
-            Point p2 = new Point(380, 820);
+            Point p = new Point(295, 510);
+            Point p1 = new Point(398, 210);
+            Point p2 = new Point(380, 810);
             Point p3 = new Point(500, 120);
-            Point p4 = new Point(550, 350);
+            Point p4 = new Point(500, 350);
             points.add(p);
             points.add(p1);
             points.add(p2);
