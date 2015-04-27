@@ -34,6 +34,8 @@ public class Easy extends Activity implements View.OnTouchListener {
     MediaPlayer backgroundMusic;
     MediaPlayer soundEffect;
     MediaPlayer ding;
+    MediaPlayer explosion;
+    MediaPlayer coinSound;
 
     OurView v;
     Sprite sprite;
@@ -115,6 +117,9 @@ public class Easy extends Activity implements View.OnTouchListener {
 
         backgroundMusic = MediaPlayer.create(this, R.raw.imagine_dragons);
         ding = MediaPlayer.create(this, R.raw.ding);
+        explosion = MediaPlayer.create(this, R.raw.explosion);
+        coinSound =  MediaPlayer.create(this, R.raw.coin);
+
         backgroundMusic.setLooping(true);
         backgroundMusic.start();
         v = new OurView(this);
@@ -307,11 +312,9 @@ public class Easy extends Activity implements View.OnTouchListener {
         @Override
         public void run() {
             sprite = new Sprite(OurView.this, user);
-            gb = new Ghost(OurView.this, ghostB);
-            gg = new Ghost(OurView.this, ghostG);
-            gg.setXSpeed(5);
-            gp = new Ghost(OurView.this, ghostP);
-            gp.setXSpeed(10);
+            gb = new Ghost(OurView.this, ghostB, 75, 120);
+            gg = new Ghost(OurView.this, ghostG, 200, 300);
+            gp = new Ghost(OurView.this, ghostP, 200, 400);
             ghosts.add(gb);
             ghosts.add(gg);
             ghosts.add(gp);
@@ -363,6 +366,7 @@ public class Easy extends Activity implements View.OnTouchListener {
 
             //draws boom if a bomb is released, and removes any ghosts hit
             if(bombRelease && boomTick > 0){
+                explosion.start();
                 boomTick--;
                  drawBoom(c);
                     for(int i = 0; i <ghosts.size(); i++){
@@ -390,7 +394,8 @@ public class Easy extends Activity implements View.OnTouchListener {
                 for(int i = 0; i < coins.size(); i++) {
                     drawCoin(c, coins.get(i).x, coins.get(i).y);
                     if(Math.abs(sprite.getX()-coins.get(i).x) < 10 && Math.abs(sprite.getY() - coins.get(i).y) < 10){
-                      money = money + 10;
+                      coinSound.start();
+                        money = money + 10;
                         Paint p = new Paint();
                         p.setColor(Color.RED);
                         p.setTextSize(40);
